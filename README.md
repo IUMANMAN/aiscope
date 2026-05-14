@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/aiscope"><img alt="npm" src="https://img.shields.io/npm/v/aiscope?color=4ee1a0"></a>
+  <a href="https://github.com/IUMANMAN/aiscope"><img alt="install" src="https://img.shields.io/badge/install-from%20GitHub-4ee1a0"></a>
   <a href="https://github.com/IUMANMAN/aiscope/blob/main/LICENSE"><img alt="license" src="https://img.shields.io/github/license/IUMANMAN/aiscope"></a>
   <a href="https://github.com/IUMANMAN/aiscope"><img alt="node" src="https://img.shields.io/badge/node-%3E%3D18-7cc7ff"></a>
   <a href="https://iumanman.github.io/aiscope/"><img alt="pages" src="https://img.shields.io/badge/docs-GitHub%20Pages-4ee1a0"></a>
@@ -79,7 +79,13 @@ The folder controls the scope. Any CLI launched inside the folder receives the r
 
 ## Install
 
-After npm publish:
+Install directly from GitHub. This does not require an npm registry account:
+
+```bash
+npm install -g github:IUMANMAN/aiscope
+```
+
+If the package is published to the npm registry later, this shorter command will also work:
 
 ```bash
 npm install -g aiscope
