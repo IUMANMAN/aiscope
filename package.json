@@ -12,7 +12,7 @@
     "url": "https://github.com/IUMANMAN/aiscope/issues"
   },
   "bin": {
-    "aiscope": "./bin/aiscope.js"
+    "aiscope": "bin/aiscope.js"
   },
   "files": [
     "bin",
