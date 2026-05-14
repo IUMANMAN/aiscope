@@ -79,24 +79,10 @@ aiscope: unloaded project/demo-app
 
 ## 安装
 
-直接从 GitHub 安装，不需要 npm registry 账号：
-
-```bash
-npm install -g github:IUMANMAN/aiscope
-```
-
-以后如果发布到 npm registry，也可以使用更短的命令：
+从 npm 安装：
 
 ```bash
 npm install -g aiscope
-```
-
-现在可以从源码使用：
-
-```bash
-git clone https://github.com/IUMANMAN/aiscope.git
-cd aiscope
-npm link
 ```
 
 ## Shell 设置

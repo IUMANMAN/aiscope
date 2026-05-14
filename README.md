@@ -79,24 +79,10 @@ The folder controls the scope. Any CLI launched inside the folder receives the r
 
 ## Install
 
-Install directly from GitHub. This does not require an npm registry account:
-
-```bash
-npm install -g github:IUMANMAN/aiscope
-```
-
-If the package is published to the npm registry later, this shorter command will also work:
+Install from npm:
 
 ```bash
 npm install -g aiscope
-```
-
-Use from source today:
-
-```bash
-git clone https://github.com/IUMANMAN/aiscope.git
-cd aiscope
-npm link
 ```
 
 ## Setup
@@ -266,14 +252,6 @@ Loaded keys:
 - VS Code extension
 - Homebrew install
 - Windows support
-
-## Development
-
-```bash
-npm test
-npm run lint
-npm pack --dry-run
-```
 
 ## License
 
