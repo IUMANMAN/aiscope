@@ -19,7 +19,10 @@
           <div class="nav-links">
             <a href="#features" data-i18n="navFeatures">Features</a>
             <a href="#install" data-i18n="navInstall">Install</a>
-            <button class="language-toggle" type="button" aria-label="Switch language" data-language-toggle>中文</button>
+            <div class="language-switch" aria-label="Language">
+              <button type="button" data-language-option="en">English</button>
+              <button type="button" data-language-option="zh">中文</button>
+            </div>
             <a class="github" href="https://github.com/IUMANMAN/aiscope">GitHub</a>
           </div>
         </nav>
@@ -119,7 +122,6 @@ npm link</code></pre>
           installTitle: "Install",
           installNpm: "Install from GitHub. No npm registry account required:",
           installSource: "Use from source today:",
-          toggle: "中文",
           htmlLang: "en"
         },
         zh: {
@@ -145,14 +147,15 @@ npm link</code></pre>
           installTitle: "安装",
           installNpm: "直接从 GitHub 安装，不需要 npm registry 账号：",
           installSource: "现在可以从源码使用：",
-          toggle: "English",
           htmlLang: "zh-CN"
         }
       };
 
+      const params = new URLSearchParams(window.location.search);
+      const urlLanguage = params.get("lang");
       const storedLanguage = localStorage.getItem("aiscope-language");
       const browserLanguage = navigator.language && navigator.language.toLowerCase().startsWith("zh") ? "zh" : "en";
-      let activeLanguage = storedLanguage || browserLanguage;
+      let activeLanguage = urlLanguage === "zh" || urlLanguage === "en" ? urlLanguage : storedLanguage || browserLanguage;
 
       function applyLanguage(language) {
         activeLanguage = language;
@@ -161,12 +164,18 @@ npm link</code></pre>
         document.querySelectorAll("[data-i18n]").forEach((node) => {
           node.textContent = dictionary[node.dataset.i18n];
         });
-        document.querySelector("[data-language-toggle]").textContent = dictionary.toggle;
+        document.querySelectorAll("[data-language-option]").forEach((button) => {
+          const isActive = button.dataset.languageOption === language;
+          button.classList.toggle("active", isActive);
+          button.setAttribute("aria-pressed", String(isActive));
+        });
         localStorage.setItem("aiscope-language", language);
       }
 
-      document.querySelector("[data-language-toggle]").addEventListener("click", () => {
-        applyLanguage(activeLanguage === "en" ? "zh" : "en");
+      document.querySelectorAll("[data-language-option]").forEach((button) => {
+        button.addEventListener("click", () => {
+          applyLanguage(button.dataset.languageOption);
+        });
       });
 
       applyLanguage(activeLanguage);

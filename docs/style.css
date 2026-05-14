@@ -65,16 +65,30 @@ main {
   font-size: 14px;
 }
 
-.language-toggle {
-  appearance: none;
+.language-switch {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  padding: 9px 12px;
   background: rgba(255, 255, 255, 0.04);
-  color: var(--text);
+}
+
+.language-switch button {
+  appearance: none;
+  border: 0;
+  border-radius: 6px;
+  padding: 7px 10px;
+  background: transparent;
+  color: var(--muted);
   cursor: pointer;
   font: inherit;
   line-height: 1;
+}
+
+.language-switch button.active {
+  background: var(--accent);
+  color: #07100c;
 }
 
 .github {
