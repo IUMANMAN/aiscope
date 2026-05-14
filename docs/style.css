@@ -32,8 +32,9 @@ a {
 main {
   min-height: 100vh;
   background:
-    radial-gradient(circle at 20% 10%, rgba(78, 225, 160, 0.14), transparent 30%),
-    linear-gradient(180deg, #0b1018 0%, #080b10 60%);
+    radial-gradient(circle at 18% 12%, rgba(78, 225, 160, 0.16), transparent 28%),
+    radial-gradient(circle at 82% 10%, rgba(124, 199, 255, 0.12), transparent 26%),
+    linear-gradient(180deg, #0b1018 0%, #080b10 58%);
 }
 
 .hero {
@@ -48,6 +49,7 @@ main {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 20px;
 }
 
 .brand {
@@ -55,8 +57,15 @@ main {
   font-size: 20px;
 }
 
-.github {
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 18px;
   color: var(--muted);
+  font-size: 14px;
+}
+
+.github {
   border: 1px solid var(--line);
   border-radius: 8px;
   padding: 10px 14px;
@@ -64,23 +73,25 @@ main {
 
 .hero-grid {
   width: min(1120px, 100%);
-  margin: 112px auto 0;
+  margin: 104px auto 0;
   display: grid;
-  grid-template-columns: 1fr 0.86fr;
+  grid-template-columns: 1fr 0.88fr;
   gap: 48px;
   align-items: center;
 }
 
 .eyebrow {
   color: var(--accent);
-  font-size: 14px;
-  font-weight: 700;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
-h1 {
+h1,
+.split h2 {
   margin: 0;
-  max-width: 760px;
+  max-width: 780px;
   font-size: clamp(46px, 7vw, 86px);
   line-height: 0.96;
   letter-spacing: 0;
@@ -93,6 +104,11 @@ h1 {
   line-height: 1.6;
 }
 
+.subtitle.zh {
+  font-size: 17px;
+  color: #c8d2df;
+}
+
 .actions {
   display: flex;
   gap: 12px;
@@ -103,7 +119,7 @@ h1 {
 .button {
   border-radius: 8px;
   padding: 13px 18px;
-  font-weight: 700;
+  font-weight: 800;
 }
 
 .primary {
@@ -117,7 +133,8 @@ h1 {
 }
 
 .terminal,
-.install pre {
+.install pre,
+.split pre {
   background: linear-gradient(180deg, var(--panel), var(--panel-2));
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -154,7 +171,7 @@ code {
 .features {
   width: min(1120px, calc(100% - 56px));
   margin: 0 auto;
-  padding: 72px 0;
+  padding: 72px 0 36px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 18px;
@@ -173,10 +190,25 @@ code {
   font-size: 20px;
 }
 
-.features p {
+.features p,
+.install p {
   margin: 0;
   color: var(--muted);
   line-height: 1.6;
+}
+
+.split {
+  width: min(1120px, calc(100% - 56px));
+  margin: 0 auto;
+  padding: 56px 0 72px;
+  display: grid;
+  grid-template-columns: 0.95fr 1fr;
+  gap: 42px;
+  align-items: center;
+}
+
+.split h2 {
+  font-size: clamp(36px, 5vw, 64px);
 }
 
 .install {
@@ -185,13 +217,28 @@ code {
   padding: 0 0 88px;
 }
 
+.install pre {
+  margin: 12px 0 26px;
+}
+
 @media (max-width: 860px) {
   .hero {
     padding: 22px;
   }
 
+  .nav {
+    align-items: flex-start;
+  }
+
+  .nav-links {
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
   .hero-grid,
-  .features {
+  .features,
+  .split {
     grid-template-columns: 1fr;
   }
 
@@ -200,7 +247,8 @@ code {
   }
 
   .features,
-  .install {
+  .install,
+  .split {
     width: min(100% - 36px, 720px);
   }
 }

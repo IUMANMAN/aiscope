@@ -1,6 +1,8 @@
 # aiscope
 
-Auto-loading local scopes for AI coding agents.
+**Auto-loading local scopes for AI coding agents.**
+
+[中文 README](./README.zh-CN.md) · [GitHub Pages](https://iumanman.github.io/aiscope/) · [Issues](https://github.com/IUMANMAN/aiscope/issues)
 
 ```bash
 cd ~/ai/projects/clip-brief
@@ -9,49 +11,60 @@ codex
 
 No wrapper command. No global secrets. No manual env switching.
 
-## Problem
+`aiscope` is a tiny local scope manager for AI coding work. It automatically loads the right environment variables when you enter a project or skill folder, then unloads them when you leave.
 
-AI coding agents need API keys and project context, but developers often end up with fragile workflows:
+Think `direnv` for AI agents, but simpler, safer by default, and built around project and skill scopes.
 
-- export secrets globally in shell config
-- manually copy `.env` files
-- use wrapper commands
-- leak keys across projects
+## Why
 
-## Solution
+AI coding agents need API keys, model provider credentials, database URLs, Cloudflare/Vercel tokens, and workflow-specific settings. Most teams solve that with rough edges:
 
-`aiscope` gives every project or skill its own local scope.
+- exporting secrets globally in `.zshrc`
+- copying `.env` files between projects
+- remembering wrapper commands like `dotenvx run -- codex`
+- accidentally leaking one project's keys into another project
 
-When you enter the folder, env loads. When you leave, env unloads.
+`aiscope` keeps each folder tied to its own local scope.
 
-It feels like `direnv` for AI coding agents, but simpler and focused on project and skill scopes.
+```bash
+cd ~/ai/projects/manman-blog
+aiscope: loaded project/manman-blog
+codex
+
+cd ..
+aiscope: unloaded project/manman-blog
+```
 
 ## Features
 
-- Automatic env loading by folder
-- Automatic unload when leaving
-- Project and skill scopes
-- Central local vault in `~/.aiscope`
-- Safe masked status output
+- Automatic env loading when you enter a folder
+- Automatic unload when you leave
+- Project scopes: `project/manman-blog`
+- Skill scopes: `skill/frontend-design`
+- Central local vault at `~/.aiscope`
+- Safe masked `status` output
+- Plain `.aiscope.toml` config
 - Works with Codex, Claude Code, npm, Python, Node, Wrangler, Vercel, and any CLI
-- Simple `.aiscope.toml`
 - No wrapper commands
+- No shell-sourced env files
 
 ## Install
+
+When published to npm:
 
 ```bash
 npm install -g aiscope
 ```
 
-Local development install:
+Local development install today:
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/aiscope.git
+git clone https://github.com/IUMANMAN/aiscope.git
 cd aiscope
 npm link
 ```
 
-## Setup
+## Shell Setup
 
 For zsh:
 
@@ -59,7 +72,7 @@ For zsh:
 eval "$(aiscope hook zsh)"
 ```
 
-Permanent setup:
+Permanent zsh setup:
 
 ```bash
 echo 'eval "$(aiscope hook zsh)"' >> ~/.zshrc
@@ -82,12 +95,16 @@ aiscope edit
 codex
 ```
 
-## Skill Example
+`aiscope edit` opens the scope env file in `$EDITOR`, or `nano` when `$EDITOR` is not set.
+
+## Skill Scopes
+
+Use skill scopes for reusable AI workflows:
 
 ```bash
-mkdir blog-markdown
-cd blog-markdown
-aiscope init skill blog-markdown
+mkdir frontend-design
+cd frontend-design
+aiscope init skill frontend-design
 aiscope edit
 claude
 ```
@@ -125,9 +142,28 @@ name = "blog-markdown"
 env = "~/.aiscope/vault/skills/blog-markdown.env"
 ```
 
+Scope names support letters, numbers, dot, dash, and underscore.
+
+## Vault Layout
+
+```text
+~/.aiscope/
+  vault/
+    projects/
+      manman-blog.env
+    skills/
+      blog-markdown.env
+  scopes/
+    projects/
+      manman-blog.md
+    skills/
+      blog-markdown.md
+  logs/
+```
+
 ## Env Files
 
-Env files are plain dotenv files stored in the local vault:
+Env files are plain dotenv files:
 
 ```dotenv
 OPENAI_API_KEY=sk-xxx
@@ -135,39 +171,72 @@ ANTHROPIC_API_KEY=sk-ant-xxx
 DATABASE_URL="postgresql://localhost/my_app"
 ```
 
-`aiscope` parses env files safely. It does not source them as shell scripts.
+Supported:
+
+- comments starting with `#`
+- blank lines
+- `KEY=value`
+- quoted values with spaces
+
+`aiscope` parses env files as data. It does not execute or source them.
 
 ## Security Model
 
-- Secrets live in `~/.aiscope/vault`
-- Env values are masked in normal output
-- Env files are local to your machine
-- No global export is required
-- Variables unload when leaving a scope
+- Secrets live locally in `~/.aiscope/vault`
 - New env files are created with `0600` permissions when possible
+- Normal CLI output masks secret values
+- The hook unloads previous scope variables before loading a new scope
+- Leaving a scoped folder clears `AISCOPE_*` metadata and loaded keys
+- `.env` and `*.env` are ignored by default
 
-Do not commit vault env files. Do not paste real secrets into issues.
+Any process started inside an active scope can read that scope's environment variables. That is how shell environments work, and it is why scopes should stay local and specific.
+
+## Status Example
+
+```bash
+aiscope status
+```
+
+```text
+Active scope: project/manman-blog
+Config: /Users/user/projects/manman-blog/.aiscope.toml
+Env file: /Users/user/.aiscope/vault/projects/manman-blog.env
+
+Loaded keys:
+  OPENAI_API_KEY=***
+  ANTHROPIC_API_KEY=***
+  DATABASE_URL=***
+```
 
 ## Comparison
 
 | Tool | Main idea | AI scope support |
 | --- | --- | --- |
-| direnv | folder env loading | generic |
-| dotenvx | dotenv loading/encryption | generic |
-| mise | dev tools + env | generic |
-| aiscope | AI project/skill scopes | built-in |
+| direnv | Folder env loading | Generic |
+| dotenvx | Dotenv loading and encryption | Generic |
+| mise | Dev tools and env | Generic |
+| aiscope | AI project and skill scopes | Built in |
 
 ## Roadmap
 
-- encrypted vault
+- encrypted local vault
 - scope permissions
 - AI context files
+- agent and workflow scopes
 - 1Password integration
 - Bitwarden integration
 - team-shared encrypted scopes
 - VS Code extension
 - Homebrew install
 - Windows support
+
+## Development
+
+```bash
+npm test
+npm run lint
+npm pack --dry-run
+```
 
 ## License
 

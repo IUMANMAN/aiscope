@@ -3,8 +3,12 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>aiscope</title>
-    <meta name="description" content="Auto-loading local scopes for AI coding agents.">
+    <title>aiscope - local scopes for AI coding agents</title>
+    <meta name="description" content="Auto-loading local scopes for AI coding agents. Stop exporting global API keys and stop typing wrapper commands.">
+    <meta property="og:title" content="aiscope">
+    <meta property="og:description" content="Auto-loading local scopes for AI coding agents.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://iumanman.github.io/aiscope/">
     <link rel="stylesheet" href="./style.css">
   </head>
   <body>
@@ -12,7 +16,11 @@
       <section class="hero">
         <nav class="nav" aria-label="Primary">
           <a class="brand" href="#">aiscope</a>
-          <a class="github" href="https://github.com/YOUR_USERNAME/aiscope">GitHub</a>
+          <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#install">Install</a>
+            <a class="github" href="https://github.com/IUMANMAN/aiscope">GitHub</a>
+          </div>
         </nav>
 
         <div class="hero-grid">
@@ -20,9 +28,10 @@
             <p class="eyebrow">Local scopes for AI coding agents</p>
             <h1>Auto-loading local scopes for AI coding agents.</h1>
             <p class="subtitle">Stop exporting global API keys. Stop typing wrapper commands. Enter a project folder, run codex or claude, and the right environment is already active.</p>
+            <p class="subtitle zh">为 AI 编程代理自动加载本地作用域。进入项目目录，直接运行 codex 或 claude。</p>
             <div class="actions">
               <a class="button primary" href="#install">Install</a>
-              <a class="button secondary" href="https://github.com/YOUR_USERNAME/aiscope">View on GitHub</a>
+              <a class="button secondary" href="https://github.com/IUMANMAN/aiscope">View on GitHub</a>
             </div>
           </div>
 
@@ -34,34 +43,54 @@
             </div>
             <pre><code>$ cd ~/ai/projects/clip-brief
 aiscope: loaded project/clip-brief
-$ codex</code></pre>
+$ codex
+
+$ cd ..
+aiscope: unloaded project/clip-brief</code></pre>
           </div>
         </div>
       </section>
 
-      <section class="features" aria-label="Features">
+      <section id="features" class="features" aria-label="Features">
         <article>
           <h2>No wrapper commands</h2>
           <p>Run Codex, Claude Code, npm, Python, Wrangler, Vercel, or any CLI exactly as you normally would.</p>
         </article>
         <article>
           <h2>No global secrets</h2>
-          <p>Keep project secrets in a local vault and avoid exporting every API key in your shell config.</p>
+          <p>Keep project secrets in a local vault instead of exporting every API key in your shell config.</p>
         </article>
         <article>
           <h2>Built for AI workflows</h2>
-          <p>Use project and skill scopes today, with agents, workflows, and encrypted vaults on the roadmap.</p>
+          <p>Use project and skill scopes today. Agent scopes, workflow scopes, and encrypted vaults can come later.</p>
         </article>
         <article>
-          <h2>Works with any CLI</h2>
-          <p>The shell hook exports normal environment variables, so existing tools do not need integrations.</p>
+          <h2>Safe by default</h2>
+          <p>Env files are parsed as data, status output is masked, and old scope variables are unloaded before new ones load.</p>
         </article>
+      </section>
+
+      <section class="split">
+        <div>
+          <p class="eyebrow">The core promise</p>
+          <h2>cd into a project. Run codex. That's it.</h2>
+        </div>
+        <pre><code>mkdir manman-blog
+cd manman-blog
+aiscope init project manman-blog
+aiscope edit
+codex</code></pre>
       </section>
 
       <section id="install" class="install">
         <h2>Install</h2>
+        <p>After npm publish:</p>
         <pre><code>npm install -g aiscope
 eval "$(aiscope hook zsh)"</code></pre>
+        <p>Use from source today:</p>
+        <pre><code>git clone https://github.com/IUMANMAN/aiscope.git
+cd aiscope
+npm link</code></pre>
       </section>
     </main>
   </body>

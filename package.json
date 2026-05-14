@@ -3,8 +3,31 @@
   "version": "0.1.0",
   "description": "Auto-loading local scopes for AI coding agents",
   "type": "module",
+  "homepage": "https://iumanman.github.io/aiscope/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IUMANMAN/aiscope.git"
+  },
+  "bugs": {
+    "url": "https://github.com/IUMANMAN/aiscope/issues"
+  },
   "bin": {
     "aiscope": "./bin/aiscope.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "docs",
+    "examples",
+    "README.md",
+    "README.zh-CN.md",
+    "LICENSE",
+    "CHANGELOG.md",
+    "SECURITY.md",
+    "CONTRIBUTING.md"
+  ],
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "start": "node ./bin/aiscope.js",
