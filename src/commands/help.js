@@ -14,7 +14,7 @@ Usage:
   aiscope help
 
 Examples:
-  aiscope init project manman-blog
+  aiscope init project demo-app
   aiscope edit
   eval "$(aiscope hook zsh)"
   codex

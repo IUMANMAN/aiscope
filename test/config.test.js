@@ -5,14 +5,14 @@ import { parseSimpleToml } from "../src/core/config.js";
 test("parseSimpleToml reads aiscope config", () => {
   const config = parseSimpleToml(`
 type = "project"
-name = "clip-brief"
-env = "~/.aiscope/vault/projects/clip-brief.env"
+name = "demo-app"
+env = "~/.aiscope/vault/projects/demo-app.env"
 `);
 
   assert.deepEqual(config, {
     type: "project",
-    name: "clip-brief",
-    env: "~/.aiscope/vault/projects/clip-brief.env"
+    name: "demo-app",
+    env: "~/.aiscope/vault/projects/demo-app.env"
   });
 });
 
