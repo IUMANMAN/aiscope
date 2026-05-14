@@ -1,8 +1,32 @@
-# aiscope
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/IUMANMAN/aiscope/main/docs/aiscope-mark-dark.svg">
+    <img alt="aiscope" src="https://raw.githubusercontent.com/IUMANMAN/aiscope/main/docs/aiscope-mark.svg" width="108">
+  </picture>
+</p>
 
-**Auto-loading local scopes for AI coding agents.**
+<h1 align="center">aiscope</h1>
 
-[中文 README](./README.zh-CN.md) · [GitHub Pages](https://iumanman.github.io/aiscope/) · [Issues](https://github.com/IUMANMAN/aiscope/issues)
+<p align="center">
+  <strong>Auto-loading local scopes for AI coding agents.</strong>
+</p>
+
+<p align="center">
+  <a href="https://www.npmjs.com/package/aiscope"><img alt="npm" src="https://img.shields.io/npm/v/aiscope?color=4ee1a0"></a>
+  <a href="https://github.com/IUMANMAN/aiscope/blob/main/LICENSE"><img alt="license" src="https://img.shields.io/github/license/IUMANMAN/aiscope"></a>
+  <a href="https://github.com/IUMANMAN/aiscope"><img alt="node" src="https://img.shields.io/badge/node-%3E%3D18-7cc7ff"></a>
+  <a href="https://iumanman.github.io/aiscope/"><img alt="pages" src="https://img.shields.io/badge/docs-GitHub%20Pages-4ee1a0"></a>
+</p>
+
+<p align="center">
+  <a href="./README.zh-CN.md">中文</a>
+  <span> · </span>
+  <a href="https://iumanman.github.io/aiscope/">Website</a>
+  <span> · </span>
+  <a href="https://github.com/IUMANMAN/aiscope/issues">Issues</a>
+</p>
+
+<br>
 
 ```bash
 cd ~/projects/demo-app
@@ -15,16 +39,21 @@ No wrapper command. No global secrets. No manual env switching.
 
 Think `direnv` for AI agents, but simpler, safer by default, and built around project and skill scopes.
 
-## Why
+## The Problem
 
-AI coding agents need API keys, model provider credentials, database URLs, Cloudflare/Vercel tokens, and workflow-specific settings. Most teams solve that with rough edges:
+AI coding agents need API keys, model provider credentials, database URLs, Cloudflare/Vercel tokens, and workflow-specific settings.
 
-- exporting secrets globally in `.zshrc`
-- copying `.env` files between projects
-- remembering wrapper commands like `dotenvx run -- codex`
-- accidentally leaking one project's keys into another project
+Most developers end up with one of these:
 
-`aiscope` keeps each folder tied to its own local scope.
+```bash
+dotenvx run -- codex
+source .env && claude
+OPENAI_API_KEY=... codex
+```
+
+That gets old quickly. It also makes it too easy to leak one project's environment into another project.
+
+## The aiscope Way
 
 ```bash
 cd ~/projects/demo-app
@@ -35,28 +64,28 @@ cd ..
 aiscope: unloaded project/demo-app
 ```
 
-## Features
+The folder controls the scope. Any CLI launched inside the folder receives the right environment.
 
-- Automatic env loading when you enter a folder
-- Automatic unload when you leave
-- Project scopes: `project/demo-app`
-- Skill scopes: `skill/frontend-design`
-- Central local vault at `~/.aiscope`
-- Safe masked `status` output
-- Plain `.aiscope.toml` config
-- Works with Codex, Claude Code, npm, Python, Node, Wrangler, Vercel, and any CLI
-- No wrapper commands
-- No shell-sourced env files
+## Highlights
+
+| Capability | What it gives you |
+| --- | --- |
+| Folder-aware scopes | Enter a scoped folder and the right env loads automatically. |
+| Automatic unload | Leave the folder and previous scope variables are removed. |
+| Project and skill scopes | Use `project/demo-app` and `skill/frontend-design` today. |
+| Local vault | Keep env files in `~/.aiscope/vault` instead of every repo. |
+| Masked status | See which keys are loaded without printing secret values. |
+| Any CLI | Works with Codex, Claude Code, npm, Python, Node, Wrangler, Vercel, and more. |
 
 ## Install
 
-When published to npm:
+After npm publish:
 
 ```bash
 npm install -g aiscope
 ```
 
-Local development install today:
+Use from source today:
 
 ```bash
 git clone https://github.com/IUMANMAN/aiscope.git
@@ -64,7 +93,7 @@ cd aiscope
 npm link
 ```
 
-## Shell Setup
+## Setup
 
 For zsh:
 
@@ -99,7 +128,7 @@ codex
 
 ## Skill Scopes
 
-Use skill scopes for reusable AI workflows:
+Skill scopes are useful for reusable AI workflows:
 
 ```bash
 mkdir frontend-design
@@ -111,18 +140,18 @@ claude
 
 ## Commands
 
-```bash
-aiscope init project <name>  # create a project scope
-aiscope init skill <name>    # create a skill scope
-aiscope hook zsh             # print zsh hook
-aiscope hook bash            # print bash hook
-aiscope status               # show active scope and masked keys
-aiscope list                 # list known scopes
-aiscope edit                 # edit current scope env file
-aiscope doctor               # check local setup
-aiscope version              # print version
-aiscope help                 # print help
-```
+| Command | Description |
+| --- | --- |
+| `aiscope init project <name>` | Create a project scope. |
+| `aiscope init skill <name>` | Create a skill scope. |
+| `aiscope hook zsh` | Print the zsh shell hook. |
+| `aiscope hook bash` | Print the bash shell hook. |
+| `aiscope status` | Show the active scope and masked keys. |
+| `aiscope list` | List known scopes. |
+| `aiscope edit` | Edit the current scope env file. |
+| `aiscope doctor` | Check local setup. |
+| `aiscope version` | Print package version. |
+| `aiscope help` | Print help. |
 
 ## Config
 
@@ -181,6 +210,8 @@ Supported:
 `aiscope` parses env files as data. It does not execute or source them.
 
 ## Security Model
+
+`aiscope` is intentionally local-first:
 
 - Secrets live locally in `~/.aiscope/vault`
 - New env files are created with `0600` permissions when possible
