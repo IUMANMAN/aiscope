@@ -5,7 +5,7 @@
 [中文 README](./README.zh-CN.md) · [GitHub Pages](https://iumanman.github.io/aiscope/) · [Issues](https://github.com/IUMANMAN/aiscope/issues)
 
 ```bash
-cd ~/ai/projects/clip-brief
+cd ~/projects/demo-app
 codex
 ```
 
@@ -27,19 +27,19 @@ AI coding agents need API keys, model provider credentials, database URLs, Cloud
 `aiscope` keeps each folder tied to its own local scope.
 
 ```bash
-cd ~/ai/projects/manman-blog
-aiscope: loaded project/manman-blog
+cd ~/projects/demo-app
+aiscope: loaded project/demo-app
 codex
 
 cd ..
-aiscope: unloaded project/manman-blog
+aiscope: unloaded project/demo-app
 ```
 
 ## Features
 
 - Automatic env loading when you enter a folder
 - Automatic unload when you leave
-- Project scopes: `project/manman-blog`
+- Project scopes: `project/demo-app`
 - Skill scopes: `skill/frontend-design`
 - Central local vault at `~/.aiscope`
 - Safe masked `status` output
@@ -130,16 +130,16 @@ Each scoped folder contains `.aiscope.toml`:
 
 ```toml
 type = "project"
-name = "manman-blog"
-env = "~/.aiscope/vault/projects/manman-blog.env"
+name = "demo-app"
+env = "~/.aiscope/vault/projects/demo-app.env"
 ```
 
 Skill scopes use:
 
 ```toml
 type = "skill"
-name = "blog-markdown"
-env = "~/.aiscope/vault/skills/blog-markdown.env"
+name = "writing-kit"
+env = "~/.aiscope/vault/skills/writing-kit.env"
 ```
 
 Scope names support letters, numbers, dot, dash, and underscore.
@@ -150,14 +150,14 @@ Scope names support letters, numbers, dot, dash, and underscore.
 ~/.aiscope/
   vault/
     projects/
-      manman-blog.env
+      demo-app.env
     skills/
-      blog-markdown.env
+      writing-kit.env
   scopes/
     projects/
-      manman-blog.md
+      demo-app.md
     skills/
-      blog-markdown.md
+      writing-kit.md
   logs/
 ```
 
@@ -198,9 +198,9 @@ aiscope status
 ```
 
 ```text
-Active scope: project/manman-blog
-Config: /Users/user/projects/manman-blog/.aiscope.toml
-Env file: /Users/user/.aiscope/vault/projects/manman-blog.env
+Active scope: project/demo-app
+Config: /Users/user/projects/demo-app/.aiscope.toml
+Env file: /Users/user/.aiscope/vault/projects/demo-app.env
 
 Loaded keys:
   OPENAI_API_KEY=***

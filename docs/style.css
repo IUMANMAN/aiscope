@@ -65,6 +65,18 @@ main {
   font-size: 14px;
 }
 
+.language-toggle {
+  appearance: none;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 9px 12px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  line-height: 1;
+}
+
 .github {
   border: 1px solid var(--line);
   border-radius: 8px;

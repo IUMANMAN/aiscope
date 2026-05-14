@@ -5,7 +5,7 @@
 [English README](./README.md) · [GitHub Pages](https://iumanman.github.io/aiscope/) · [Issues](https://github.com/IUMANMAN/aiscope/issues)
 
 ```bash
-cd ~/ai/projects/clip-brief
+cd ~/projects/demo-app
 codex
 ```
 
@@ -27,19 +27,19 @@ AI 编程代理经常需要 API key、模型供应商凭证、数据库地址、
 `aiscope` 让每个目录绑定自己的本地作用域。
 
 ```bash
-cd ~/ai/projects/manman-blog
-aiscope: loaded project/manman-blog
+cd ~/projects/demo-app
+aiscope: loaded project/demo-app
 codex
 
 cd ..
-aiscope: unloaded project/manman-blog
+aiscope: unloaded project/demo-app
 ```
 
 ## 功能
 
 - 进入目录时自动加载环境变量
 - 离开目录时自动卸载环境变量
-- 项目作用域：`project/manman-blog`
+- 项目作用域：`project/demo-app`
 - 技能作用域：`skill/frontend-design`
 - 本地中心 vault：`~/.aiscope`
 - `status` 输出自动隐藏密钥值
@@ -130,16 +130,16 @@ aiscope help                 # 输出帮助
 
 ```toml
 type = "project"
-name = "manman-blog"
-env = "~/.aiscope/vault/projects/manman-blog.env"
+name = "demo-app"
+env = "~/.aiscope/vault/projects/demo-app.env"
 ```
 
 skill 作用域：
 
 ```toml
 type = "skill"
-name = "blog-markdown"
-env = "~/.aiscope/vault/skills/blog-markdown.env"
+name = "writing-kit"
+env = "~/.aiscope/vault/skills/writing-kit.env"
 ```
 
 作用域名称支持字母、数字、点、短横线和下划线。
@@ -150,14 +150,14 @@ env = "~/.aiscope/vault/skills/blog-markdown.env"
 ~/.aiscope/
   vault/
     projects/
-      manman-blog.env
+      demo-app.env
     skills/
-      blog-markdown.env
+      writing-kit.env
   scopes/
     projects/
-      manman-blog.md
+      demo-app.md
     skills/
-      blog-markdown.md
+      writing-kit.md
   logs/
 ```
 

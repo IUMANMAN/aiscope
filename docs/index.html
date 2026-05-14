@@ -17,21 +17,21 @@
         <nav class="nav" aria-label="Primary">
           <a class="brand" href="#">aiscope</a>
           <div class="nav-links">
-            <a href="#features">Features</a>
-            <a href="#install">Install</a>
+            <a href="#features" data-i18n="navFeatures">Features</a>
+            <a href="#install" data-i18n="navInstall">Install</a>
+            <button class="language-toggle" type="button" aria-label="Switch language" data-language-toggle>中文</button>
             <a class="github" href="https://github.com/IUMANMAN/aiscope">GitHub</a>
           </div>
         </nav>
 
         <div class="hero-grid">
           <div class="hero-copy">
-            <p class="eyebrow">Local scopes for AI coding agents</p>
-            <h1>Auto-loading local scopes for AI coding agents.</h1>
-            <p class="subtitle">Stop exporting global API keys. Stop typing wrapper commands. Enter a project folder, run codex or claude, and the right environment is already active.</p>
-            <p class="subtitle zh">为 AI 编程代理自动加载本地作用域。进入项目目录，直接运行 codex 或 claude。</p>
+            <p class="eyebrow" data-i18n="eyebrow">Local scopes for AI coding agents</p>
+            <h1 data-i18n="headline">Auto-loading local scopes for AI coding agents.</h1>
+            <p class="subtitle" data-i18n="subtitle">Stop exporting global API keys. Stop typing wrapper commands. Enter a project folder, run codex or claude, and the right environment is already active.</p>
             <div class="actions">
-              <a class="button primary" href="#install">Install</a>
-              <a class="button secondary" href="https://github.com/IUMANMAN/aiscope">View on GitHub</a>
+              <a class="button primary" href="#install" data-i18n="installButton">Install</a>
+              <a class="button secondary" href="https://github.com/IUMANMAN/aiscope" data-i18n="githubButton">View on GitHub</a>
             </div>
           </div>
 
@@ -41,57 +41,135 @@
               <span></span>
               <span></span>
             </div>
-            <pre><code>$ cd ~/ai/projects/clip-brief
-aiscope: loaded project/clip-brief
+            <pre><code data-i18n="terminal">$ cd ~/projects/demo-app
+aiscope: loaded project/demo-app
 $ codex
 
 $ cd ..
-aiscope: unloaded project/clip-brief</code></pre>
+aiscope: unloaded project/demo-app</code></pre>
           </div>
         </div>
       </section>
 
       <section id="features" class="features" aria-label="Features">
         <article>
-          <h2>No wrapper commands</h2>
-          <p>Run Codex, Claude Code, npm, Python, Wrangler, Vercel, or any CLI exactly as you normally would.</p>
+          <h2 data-i18n="featureOneTitle">No wrapper commands</h2>
+          <p data-i18n="featureOneBody">Run Codex, Claude Code, npm, Python, Wrangler, Vercel, or any CLI exactly as you normally would.</p>
         </article>
         <article>
-          <h2>No global secrets</h2>
-          <p>Keep project secrets in a local vault instead of exporting every API key in your shell config.</p>
+          <h2 data-i18n="featureTwoTitle">No global secrets</h2>
+          <p data-i18n="featureTwoBody">Keep project secrets in a local vault instead of exporting every API key in your shell config.</p>
         </article>
         <article>
-          <h2>Built for AI workflows</h2>
-          <p>Use project and skill scopes today. Agent scopes, workflow scopes, and encrypted vaults can come later.</p>
+          <h2 data-i18n="featureThreeTitle">Built for AI workflows</h2>
+          <p data-i18n="featureThreeBody">Use project and skill scopes today. Agent scopes, workflow scopes, and encrypted vaults can come later.</p>
         </article>
         <article>
-          <h2>Safe by default</h2>
-          <p>Env files are parsed as data, status output is masked, and old scope variables are unloaded before new ones load.</p>
+          <h2 data-i18n="featureFourTitle">Safe by default</h2>
+          <p data-i18n="featureFourBody">Env files are parsed as data, status output is masked, and old scope variables are unloaded before new ones load.</p>
         </article>
       </section>
 
       <section class="split">
         <div>
-          <p class="eyebrow">The core promise</p>
-          <h2>cd into a project. Run codex. That's it.</h2>
+          <p class="eyebrow" data-i18n="promiseEyebrow">The core promise</p>
+          <h2 data-i18n="promiseTitle">cd into a project. Run codex. That's it.</h2>
         </div>
-        <pre><code>mkdir manman-blog
-cd manman-blog
-aiscope init project manman-blog
+        <pre><code data-i18n="quickstart">mkdir demo-app
+cd demo-app
+aiscope init project demo-app
 aiscope edit
 codex</code></pre>
       </section>
 
       <section id="install" class="install">
-        <h2>Install</h2>
-        <p>After npm publish:</p>
+        <h2 data-i18n="installTitle">Install</h2>
+        <p data-i18n="installNpm">After npm publish:</p>
         <pre><code>npm install -g aiscope
 eval "$(aiscope hook zsh)"</code></pre>
-        <p>Use from source today:</p>
+        <p data-i18n="installSource">Use from source today:</p>
         <pre><code>git clone https://github.com/IUMANMAN/aiscope.git
 cd aiscope
 npm link</code></pre>
       </section>
     </main>
+
+    <script>
+      const translations = {
+        en: {
+          navFeatures: "Features",
+          navInstall: "Install",
+          eyebrow: "Local scopes for AI coding agents",
+          headline: "Auto-loading local scopes for AI coding agents.",
+          subtitle: "Stop exporting global API keys. Stop typing wrapper commands. Enter a project folder, run codex or claude, and the right environment is already active.",
+          installButton: "Install",
+          githubButton: "View on GitHub",
+          terminal: "$ cd ~/projects/demo-app\naiscope: loaded project/demo-app\n$ codex\n\n$ cd ..\naiscope: unloaded project/demo-app",
+          featureOneTitle: "No wrapper commands",
+          featureOneBody: "Run Codex, Claude Code, npm, Python, Wrangler, Vercel, or any CLI exactly as you normally would.",
+          featureTwoTitle: "No global secrets",
+          featureTwoBody: "Keep project secrets in a local vault instead of exporting every API key in your shell config.",
+          featureThreeTitle: "Built for AI workflows",
+          featureThreeBody: "Use project and skill scopes today. Agent scopes, workflow scopes, and encrypted vaults can come later.",
+          featureFourTitle: "Safe by default",
+          featureFourBody: "Env files are parsed as data, status output is masked, and old scope variables are unloaded before new ones load.",
+          promiseEyebrow: "The core promise",
+          promiseTitle: "cd into a project. Run codex. That's it.",
+          quickstart: "mkdir demo-app\ncd demo-app\naiscope init project demo-app\naiscope edit\ncodex",
+          installTitle: "Install",
+          installNpm: "After npm publish:",
+          installSource: "Use from source today:",
+          toggle: "中文",
+          htmlLang: "en"
+        },
+        zh: {
+          navFeatures: "功能",
+          navInstall: "安装",
+          eyebrow: "AI 编程代理的本地作用域",
+          headline: "为 AI 编程代理自动加载本地作用域。",
+          subtitle: "不再全局导出 API key，不再输入包装命令。进入项目目录，运行 codex 或 claude，正确的环境变量已经准备好。",
+          installButton: "安装",
+          githubButton: "查看 GitHub",
+          terminal: "$ cd ~/projects/demo-app\naiscope: loaded project/demo-app\n$ codex\n\n$ cd ..\naiscope: unloaded project/demo-app",
+          featureOneTitle: "不需要包装命令",
+          featureOneBody: "像平时一样运行 Codex、Claude Code、npm、Python、Wrangler、Vercel 或任何 CLI。",
+          featureTwoTitle: "不需要全局密钥",
+          featureTwoBody: "把项目密钥放在本地 vault 中，而不是把所有 API key 都导出到 shell 配置里。",
+          featureThreeTitle: "为 AI 工作流设计",
+          featureThreeBody: "现在支持 project 和 skill 作用域。后续可以扩展 agent、workflow 和加密 vault。",
+          featureFourTitle: "默认更安全",
+          featureFourBody: "Env 文件会作为数据解析，状态输出会隐藏密钥值，加载新作用域前会先卸载旧变量。",
+          promiseEyebrow: "核心体验",
+          promiseTitle: "进入项目目录。运行 codex。就这样。",
+          quickstart: "mkdir demo-app\ncd demo-app\naiscope init project demo-app\naiscope edit\ncodex",
+          installTitle: "安装",
+          installNpm: "发布到 npm 后：",
+          installSource: "现在可以从源码使用：",
+          toggle: "English",
+          htmlLang: "zh-CN"
+        }
+      };
+
+      const storedLanguage = localStorage.getItem("aiscope-language");
+      const browserLanguage = navigator.language && navigator.language.toLowerCase().startsWith("zh") ? "zh" : "en";
+      let activeLanguage = storedLanguage || browserLanguage;
+
+      function applyLanguage(language) {
+        activeLanguage = language;
+        const dictionary = translations[language];
+        document.documentElement.lang = dictionary.htmlLang;
+        document.querySelectorAll("[data-i18n]").forEach((node) => {
+          node.textContent = dictionary[node.dataset.i18n];
+        });
+        document.querySelector("[data-language-toggle]").textContent = dictionary.toggle;
+        localStorage.setItem("aiscope-language", language);
+      }
+
+      document.querySelector("[data-language-toggle]").addEventListener("click", () => {
+        applyLanguage(activeLanguage === "en" ? "zh" : "en");
+      });
+
+      applyLanguage(activeLanguage);
+    </script>
   </body>
 </html>
