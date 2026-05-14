@@ -12,7 +12,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/IUMANMAN/aiscope"><img alt="install" src="https://img.shields.io/badge/install-from%20GitHub-4ee1a0"></a>
+  <a href="https://www.npmjs.com/package/aiscope"><img alt="npm version" src="https://img.shields.io/npm/v/aiscope?color=4ee1a0"></a>
+  <a href="https://www.npmjs.com/package/aiscope"><img alt="npm downloads" src="https://img.shields.io/npm/dm/aiscope"></a>
   <a href="https://github.com/IUMANMAN/aiscope/blob/main/LICENSE"><img alt="license" src="https://img.shields.io/github/license/IUMANMAN/aiscope"></a>
   <a href="https://github.com/IUMANMAN/aiscope"><img alt="node" src="https://img.shields.io/badge/node-%3E%3D18-7cc7ff"></a>
   <a href="https://iumanman.github.io/aiscope/"><img alt="pages" src="https://img.shields.io/badge/docs-GitHub%20Pages-4ee1a0"></a>
@@ -29,6 +30,9 @@
 <br>
 
 ```bash
+npm install -g aiscope
+eval "$(aiscope hook zsh)"
+
 cd ~/projects/demo-app
 codex
 ```
@@ -85,25 +89,32 @@ Install from npm:
 npm install -g aiscope
 ```
 
-## Setup
-
-For zsh:
+Then add the shell hook:
 
 ```bash
 eval "$(aiscope hook zsh)"
-```
-
-Permanent zsh setup:
-
-```bash
-echo 'eval "$(aiscope hook zsh)"' >> ~/.zshrc
-source ~/.zshrc
 ```
 
 For bash:
 
 ```bash
 eval "$(aiscope hook bash)"
+```
+
+## Setup
+
+Add the hook permanently:
+
+```bash
+echo 'eval "$(aiscope hook zsh)"' >> ~/.zshrc
+source ~/.zshrc
+```
+
+Or for bash:
+
+```bash
+echo 'eval "$(aiscope hook bash)"' >> ~/.bashrc
+source ~/.bashrc
 ```
 
 ## Quick Start
@@ -117,6 +128,17 @@ codex
 ```
 
 `aiscope edit` opens the scope env file in `$EDITOR`, or `nano` when `$EDITOR` is not set.
+
+## How It Feels
+
+```bash
+cd ~/projects/demo-app
+aiscope: loaded project/demo-app
+codex
+
+cd ..
+aiscope: unloaded project/demo-app
+```
 
 ## Skill Scopes
 
@@ -213,6 +235,15 @@ Supported:
 - `.env` and `*.env` are ignored by default
 
 Any process started inside an active scope can read that scope's environment variables. That is how shell environments work, and it is why scopes should stay local and specific.
+
+## What aiscope Is Not
+
+- Not a cloud secrets manager
+- Not an encrypted vault yet
+- Not a wrapper command runner
+- Not a replacement for team secrets infrastructure
+
+`aiscope` is intentionally small: local scope in, local environment out.
 
 ## Status Example
 

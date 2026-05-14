@@ -25,6 +25,7 @@
     "CONTRIBUTING.md"
   ],
   "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
     "access": "public"
   },
   "scripts": {
@@ -38,13 +39,22 @@
     "codex",
     "claude-code",
     "agents",
+    "ai-agents",
+    "direnv",
     "dotenv",
     "env",
+    "environment-variables",
+    "local-first",
     "secrets",
+    "shell",
     "developer-tools",
     "terminal"
   ],
   "license": "MIT",
+  "os": [
+    "darwin",
+    "linux"
+  ],
   "engines": {
     "node": ">=18"
   }

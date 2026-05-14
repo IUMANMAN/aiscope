@@ -12,7 +12,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/IUMANMAN/aiscope"><img alt="install" src="https://img.shields.io/badge/install-from%20GitHub-4ee1a0"></a>
+  <a href="https://www.npmjs.com/package/aiscope"><img alt="npm version" src="https://img.shields.io/npm/v/aiscope?color=4ee1a0"></a>
+  <a href="https://www.npmjs.com/package/aiscope"><img alt="npm downloads" src="https://img.shields.io/npm/dm/aiscope"></a>
   <a href="https://github.com/IUMANMAN/aiscope/blob/main/LICENSE"><img alt="license" src="https://img.shields.io/github/license/IUMANMAN/aiscope"></a>
   <a href="https://github.com/IUMANMAN/aiscope"><img alt="node" src="https://img.shields.io/badge/node-%3E%3D18-7cc7ff"></a>
   <a href="https://iumanman.github.io/aiscope/"><img alt="pages" src="https://img.shields.io/badge/docs-GitHub%20Pages-4ee1a0"></a>
@@ -29,6 +30,9 @@
 <br>
 
 ```bash
+npm install -g aiscope
+eval "$(aiscope hook zsh)"
+
 cd ~/projects/demo-app
 codex
 ```
@@ -85,15 +89,21 @@ aiscope: unloaded project/demo-app
 npm install -g aiscope
 ```
 
-## Shell 设置
-
-zsh：
+然后启用 shell hook：
 
 ```bash
 eval "$(aiscope hook zsh)"
 ```
 
-永久启用：
+bash：
+
+```bash
+eval "$(aiscope hook bash)"
+```
+
+## Shell 设置
+
+永久启用 zsh：
 
 ```bash
 echo 'eval "$(aiscope hook zsh)"' >> ~/.zshrc
@@ -103,7 +113,8 @@ source ~/.zshrc
 bash：
 
 ```bash
-eval "$(aiscope hook bash)"
+echo 'eval "$(aiscope hook bash)"' >> ~/.bashrc
+source ~/.bashrc
 ```
 
 ## 快速开始
@@ -117,6 +128,17 @@ codex
 ```
 
 `aiscope edit` 会使用 `$EDITOR` 打开作用域 env 文件；如果没有设置 `$EDITOR`，则使用 `nano`。
+
+## 实际体验
+
+```bash
+cd ~/projects/demo-app
+aiscope: loaded project/demo-app
+codex
+
+cd ..
+aiscope: unloaded project/demo-app
+```
 
 ## Skill 作用域
 
@@ -213,6 +235,15 @@ DATABASE_URL="postgresql://localhost/my_app"
 - 默认忽略 `.env` 和 `*.env`
 
 在活动作用域中启动的进程可以读取该作用域的环境变量。这是 shell 环境变量的基本机制，所以作用域应该保持本地、具体、最小化。
+
+## aiscope 不是什么
+
+- 不是云端 secrets manager
+- 目前还不是加密 vault
+- 不是包装命令运行器
+- 不是团队 secrets 基础设施的替代品
+
+`aiscope` 保持小而清晰：本地 scope 进入，本地环境变量输出。
 
 ## Roadmap
 

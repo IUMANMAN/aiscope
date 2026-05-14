@@ -4,6 +4,7 @@
 
 - Use npm install as the primary public install path
 - Keep development-only docs and examples out of the npm package payload
+- Improve npm metadata and public README install flow
 
 ## 0.1.0
 
