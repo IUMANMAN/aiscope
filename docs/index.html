@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>aiscope</title>
+    <meta name="description" content="Auto-loading local scopes for AI coding agents.">
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <main>
+      <section class="hero">
+        <nav class="nav" aria-label="Primary">
+          <a class="brand" href="#">aiscope</a>
+          <a class="github" href="https://github.com/YOUR_USERNAME/aiscope">GitHub</a>
+        </nav>
+
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow">Local scopes for AI coding agents</p>
+            <h1>Auto-loading local scopes for AI coding agents.</h1>
+            <p class="subtitle">Stop exporting global API keys. Stop typing wrapper commands. Enter a project folder, run codex or claude, and the right environment is already active.</p>
+            <div class="actions">
+              <a class="button primary" href="#install">Install</a>
+              <a class="button secondary" href="https://github.com/YOUR_USERNAME/aiscope">View on GitHub</a>
+            </div>
+          </div>
+
+          <div class="terminal" aria-label="Terminal demo">
+            <div class="terminal-bar">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <pre><code>$ cd ~/ai/projects/clip-brief
+aiscope: loaded project/clip-brief
+$ codex</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="features" aria-label="Features">
+        <article>
+          <h2>No wrapper commands</h2>
+          <p>Run Codex, Claude Code, npm, Python, Wrangler, Vercel, or any CLI exactly as you normally would.</p>
+        </article>
+        <article>
+          <h2>No global secrets</h2>
+          <p>Keep project secrets in a local vault and avoid exporting every API key in your shell config.</p>
+        </article>
+        <article>
+          <h2>Built for AI workflows</h2>
+          <p>Use project and skill scopes today, with agents, workflows, and encrypted vaults on the roadmap.</p>
+        </article>
+        <article>
+          <h2>Works with any CLI</h2>
+          <p>The shell hook exports normal environment variables, so existing tools do not need integrations.</p>
+        </article>
+      </section>
+
+      <section id="install" class="install">
+        <h2>Install</h2>
+        <pre><code>npm install -g aiscope
+eval "$(aiscope hook zsh)"</code></pre>
+      </section>
+    </main>
+  </body>
+</html>

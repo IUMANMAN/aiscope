@@ -1,0 +1,30 @@
+{
+  "name": "aiscope",
+  "version": "0.1.0",
+  "description": "Auto-loading local scopes for AI coding agents",
+  "type": "module",
+  "bin": {
+    "aiscope": "./bin/aiscope.js"
+  },
+  "scripts": {
+    "start": "node ./bin/aiscope.js",
+    "test": "node --test",
+    "lint": "node --check bin/aiscope.js && node --check src/cli.js && find src -name '*.js' -exec node --check {} \\;"
+  },
+  "keywords": [
+    "ai",
+    "cli",
+    "codex",
+    "claude-code",
+    "agents",
+    "dotenv",
+    "env",
+    "secrets",
+    "developer-tools",
+    "terminal"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  }
+}

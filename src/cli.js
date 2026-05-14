@@ -1,0 +1,52 @@
+import { initCommand } from "./commands/init.js";
+import { hookCommand, activateCommand, deactivateCommand } from "./commands/hook.js";
+import { statusCommand } from "./commands/status.js";
+import { listCommand } from "./commands/list.js";
+import { editCommand } from "./commands/edit.js";
+import { doctorCommand } from "./commands/doctor.js";
+import { versionCommand } from "./commands/version.js";
+import { helpCommand } from "./commands/help.js";
+
+export async function run(argv = process.argv) {
+  const args = argv.slice(2);
+  const [command, ...rest] = args;
+
+  if (!command || command === "help" || command === "--help" || command === "-h") {
+    helpCommand();
+    return;
+  }
+
+  if (command === "version" || command === "--version" || command === "-v") {
+    await versionCommand();
+    return;
+  }
+
+  switch (command) {
+    case "init":
+      await initCommand(rest);
+      break;
+    case "hook":
+      hookCommand(rest);
+      break;
+    case "status":
+      await statusCommand();
+      break;
+    case "list":
+      await listCommand();
+      break;
+    case "edit":
+      await editCommand();
+      break;
+    case "doctor":
+      await doctorCommand();
+      break;
+    case "__activate":
+      await activateCommand(rest);
+      break;
+    case "__deactivate":
+      deactivateCommand();
+      break;
+    default:
+      throw new Error(`unknown command "${command}". Run "aiscope help".`);
+  }
+}

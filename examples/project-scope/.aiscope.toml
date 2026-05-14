@@ -1,0 +1,3 @@
+type = "project"
+name = "example-project"
+env = "~/.aiscope/vault/projects/example-project.env"
