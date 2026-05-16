@@ -39,6 +39,7 @@ eval "$(aiscope hook zsh)"
 cd my-app
 aiscope use my-app
 aiscope set OPENAI_API_KEY sk-...
+aiscope dashboard
 codex
 ```
 
@@ -92,6 +93,7 @@ The folder controls the scope. Any CLI launched inside the folder receives the r
 | Automatic unload | Leave the folder and previous scope variables are removed. |
 | Project and skill scopes | Use `project/demo-app` and `skill/frontend-design` today. |
 | Central env manager | Use `aiscope set`, `aiscope unset`, and `aiscope vars` from any scoped project. |
+| Local CLI dashboard | Use `aiscope dashboard` to see scope, shared keys, link status, and next actions. |
 | Shared variables | Reuse credentials with `aiscope share`, `aiscope shared`, and `aiscope add`. |
 | Local vault | Keep env files in `~/.aiscope/vault` instead of every repo. |
 | `.env.local` link | Link the active scope as `.env.local` for frameworks that read env files from disk. |
@@ -152,6 +154,7 @@ cd my-app
 aiscope use my-app
 aiscope set OPENAI_API_KEY sk-...
 aiscope vars
+aiscope dashboard
 aiscope link
 codex
 ```
@@ -193,6 +196,7 @@ claude
 | `aiscope set <KEY> <VALUE>` | Set a variable in the current scope. |
 | `aiscope unset <KEY>` | Remove a variable from the current scope. |
 | `aiscope vars` | List current scope variables with masked values. |
+| `aiscope dashboard` | Show a local terminal dashboard for the current project. |
 | `aiscope shared` | List shared scopes and their keys. |
 | `aiscope shared create <name>` | Create a shared env scope. |
 | `aiscope share <shared-name> <KEY...>` | Copy selected project variables into a shared scope. |
@@ -311,6 +315,32 @@ aiscope shared openai
 ```
 
 Values are masked by default. If the same key exists in both project and shared scopes, the project value wins.
+
+## Local Dashboard
+
+Use the terminal dashboard when you want to see the whole project setup:
+
+```bash
+aiscope dashboard
+```
+
+It shows:
+
+- current project scope
+- shell hook state
+- env file path
+- `.env.local` link status
+- attached shared scopes
+- project variables
+- shared variables
+- resolved variables and override sources
+- suggested next actions
+
+Alias:
+
+```bash
+aiscope dash
+```
 
 ## `.env.local` Compatibility
 

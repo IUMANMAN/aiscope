@@ -7,6 +7,7 @@ Usage:
   aiscope set <KEY> <VALUE>
   aiscope unset <KEY>
   aiscope vars
+  aiscope dashboard
   aiscope shared
   aiscope shared create <name>
   aiscope share <shared-name> <KEY...>
@@ -30,6 +31,7 @@ Examples:
   aiscope use demo-app
   aiscope set OPENAI_API_KEY sk-...
   aiscope share openai OPENAI_API_KEY
+  aiscope dashboard
   aiscope shared
   aiscope link
   codex

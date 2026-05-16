@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.6.0
+
+- Add `aiscope dashboard` and `aiscope dash` for a local terminal dashboard
+- Show current scope, hook state, `.env.local` link status, shared scopes, masked variables, overrides, and next actions
+
 ## 0.5.0
 
 - Add shared env scopes for variables reused across projects

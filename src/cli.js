@@ -8,6 +8,7 @@ import { linkCommand } from "./commands/link.js";
 import { exportCommandForScope } from "./commands/export.js";
 import { setCommand, unsetCommand, varsCommand } from "./commands/vars.js";
 import { addCommand, removeCommand, shareCommand, sharedCommand } from "./commands/shared.js";
+import { dashboardCommand } from "./commands/dashboard.js";
 import { doctorCommand } from "./commands/doctor.js";
 import { versionCommand } from "./commands/version.js";
 import { helpCommand } from "./commands/help.js";
@@ -41,6 +42,10 @@ export async function run(argv = process.argv) {
       break;
     case "vars":
       await varsCommand();
+      break;
+    case "dashboard":
+    case "dash":
+      await dashboardCommand();
       break;
     case "shared":
       await sharedCommand(rest);

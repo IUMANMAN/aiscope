@@ -39,6 +39,7 @@ eval "$(aiscope hook zsh)"
 cd my-app
 aiscope use my-app
 aiscope set OPENAI_API_KEY sk-...
+aiscope dashboard
 codex
 ```
 
@@ -92,6 +93,7 @@ aiscope: unloaded project/demo-app
 | 自动卸载 | 离开目录后移除上一个作用域的变量。 |
 | Project 和 skill | 当前支持 `project/demo-app` 和 `skill/frontend-design`。 |
 | 中心化 env 管理 | 在 scoped project 中使用 `aiscope set`、`aiscope unset` 和 `aiscope vars`。 |
+| 本地 CLI dashboard | 使用 `aiscope dashboard` 查看 scope、共享 key、链接状态和下一步操作。 |
 | 共享变量 | 使用 `aiscope share`、`aiscope shared` 和 `aiscope add` 复用凭证。 |
 | 本地 vault | Env 文件集中保存在 `~/.aiscope/vault`。 |
 | `.env.local` 链接 | 为需要读取本地 env 文件的框架，把当前 scope 链接成 `.env.local`。 |
@@ -152,6 +154,7 @@ cd my-app
 aiscope use my-app
 aiscope set OPENAI_API_KEY sk-...
 aiscope vars
+aiscope dashboard
 aiscope link
 codex
 ```
@@ -193,6 +196,7 @@ claude
 | `aiscope set <KEY> <VALUE>` | 在当前 scope 中设置变量。 |
 | `aiscope unset <KEY>` | 从当前 scope 中删除变量。 |
 | `aiscope vars` | 列出当前 scope 的变量，值会被隐藏。 |
+| `aiscope dashboard` | 显示当前项目的本地终端 dashboard。 |
 | `aiscope shared` | 列出共享 scopes 和它们的 key。 |
 | `aiscope shared create <name>` | 创建共享 env scope。 |
 | `aiscope share <shared-name> <KEY...>` | 把选中的项目变量复制到共享 scope。 |
@@ -311,6 +315,32 @@ aiscope shared openai
 ```
 
 默认会隐藏变量值。如果同一个 key 同时存在于 project 和 shared scope，project 的值优先。
+
+## 本地 Dashboard
+
+想查看整个项目的配置时：
+
+```bash
+aiscope dashboard
+```
+
+它会显示：
+
+- 当前 project scope
+- shell hook 状态
+- env 文件路径
+- `.env.local` 链接状态
+- 已添加的 shared scopes
+- project 变量
+- shared 变量
+- 合并后的变量和覆盖来源
+- 推荐下一步操作
+
+别名：
+
+```bash
+aiscope dash
+```
 
 ## `.env.local` 兼容
 
