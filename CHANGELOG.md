@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.0
+
+- Add `aiscope use <name>` for the simplest project setup flow
+- Add `aiscope set`, `aiscope unset`, and `aiscope vars` for central env variable management
+- Preserve the central vault model while making project usage feel like `.env.local`
+
 ## 0.3.0
 
 - Add `aiscope export` for tools that need shell export commands without installing the hook

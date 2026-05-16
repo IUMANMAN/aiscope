@@ -36,7 +36,9 @@
 npm install -g aiscope
 eval "$(aiscope hook zsh)"
 
-cd ~/projects/demo-app
+cd my-app
+aiscope use my-app
+aiscope set OPENAI_API_KEY sk-...
 codex
 ```
 
@@ -51,6 +53,7 @@ Think `direnv` for AI agents, but simpler, safer by default, and built around pr
 - Keep AI/API credentials out of global shell config.
 - Switch projects without leaking old environment variables.
 - Give Codex, Claude Code, local dev servers, deploy CLIs, and scripts the same scoped env.
+- Manage env variables from one central aiscope vault.
 - Keep `.env.local` compatibility when a framework needs a file on disk.
 
 ## The Problem
@@ -87,6 +90,7 @@ The folder controls the scope. Any CLI launched inside the folder receives the r
 | Folder-aware scopes | Enter a scoped folder and the right env loads automatically. |
 | Automatic unload | Leave the folder and previous scope variables are removed. |
 | Project and skill scopes | Use `project/demo-app` and `skill/frontend-design` today. |
+| Central env manager | Use `aiscope set`, `aiscope unset`, and `aiscope vars` from any scoped project. |
 | Local vault | Keep env files in `~/.aiscope/vault` instead of every repo. |
 | `.env.local` link | Link the active scope as `.env.local` for frameworks that read env files from disk. |
 | Masked status | See which keys are loaded without printing secret values. |
@@ -143,13 +147,16 @@ source ~/.bashrc
 ```bash
 mkdir my-app
 cd my-app
-aiscope init project my-app
-aiscope edit
+aiscope use my-app
+aiscope set OPENAI_API_KEY sk-...
+aiscope vars
 aiscope link
 codex
 ```
 
-`aiscope edit` opens the scope env file in `$EDITOR`, or `nano` when `$EDITOR` is not set.
+`aiscope use` attaches the current folder to a central project scope.
+
+`aiscope set` writes variables to the central aiscope vault.
 
 `aiscope link` creates `.env.local` as a symlink to the scope env file. Use it when your framework expects a local env file, such as Next.js, Vite, or other tools that scan `.env.local`.
 
@@ -180,6 +187,10 @@ claude
 
 | Command | Description |
 | --- | --- |
+| `aiscope use <name>` | Attach the current folder to a central project scope. |
+| `aiscope set <KEY> <VALUE>` | Set a variable in the current scope. |
+| `aiscope unset <KEY>` | Remove a variable from the current scope. |
+| `aiscope vars` | List current scope variables with masked values. |
 | `aiscope init project <name>` | Create a project scope. |
 | `aiscope init skill <name>` | Create a skill scope. |
 | `aiscope hook zsh` | Print the zsh shell hook. |
@@ -212,6 +223,8 @@ env = "~/.aiscope/vault/skills/writing-kit.env"
 ```
 
 Scope names support letters, numbers, dot, dash, and underscore.
+
+Most users can use `aiscope use <name>` instead of writing this file manually.
 
 ## Vault Layout
 
@@ -248,6 +261,15 @@ Supported:
 - quoted values with spaces
 
 `aiscope` parses env files as data. It does not execute or source them.
+
+Manage env values from the CLI:
+
+```bash
+aiscope set OPENAI_API_KEY sk-...
+aiscope set DATABASE_URL postgresql://localhost/my_app
+aiscope vars
+aiscope unset DATABASE_URL
+```
 
 ## `.env.local` Compatibility
 

@@ -1,10 +1,12 @@
 import { initCommand } from "./commands/init.js";
+import { useCommand } from "./commands/use.js";
 import { hookCommand, activateCommand, deactivateCommand } from "./commands/hook.js";
 import { statusCommand } from "./commands/status.js";
 import { listCommand } from "./commands/list.js";
 import { editCommand } from "./commands/edit.js";
 import { linkCommand } from "./commands/link.js";
 import { exportCommandForScope } from "./commands/export.js";
+import { setCommand, unsetCommand, varsCommand } from "./commands/vars.js";
 import { doctorCommand } from "./commands/doctor.js";
 import { versionCommand } from "./commands/version.js";
 import { helpCommand } from "./commands/help.js";
@@ -26,6 +28,18 @@ export async function run(argv = process.argv) {
   switch (command) {
     case "init":
       await initCommand(rest);
+      break;
+    case "use":
+      await useCommand(rest);
+      break;
+    case "set":
+      await setCommand(rest);
+      break;
+    case "unset":
+      await unsetCommand(rest);
+      break;
+    case "vars":
+      await varsCommand();
       break;
     case "hook":
       hookCommand(rest);

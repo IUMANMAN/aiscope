@@ -36,7 +36,9 @@
 npm install -g aiscope
 eval "$(aiscope hook zsh)"
 
-cd ~/projects/demo-app
+cd my-app
+aiscope use my-app
+aiscope set OPENAI_API_KEY sk-...
 codex
 ```
 
@@ -51,6 +53,7 @@ codex
 - 不把 AI/API 凭证写进全局 shell 配置。
 - 在多个项目之间切换时，不把旧项目环境变量泄漏到新项目。
 - 让 Codex、Claude Code、本地 dev server、部署 CLI 和脚本使用同一套 scoped env。
+- 通过一个中心化 aiscope vault 管理环境变量。
 - 当框架需要磁盘上的 env 文件时，仍然兼容 `.env.local`。
 
 ## 问题
@@ -87,6 +90,7 @@ aiscope: unloaded project/demo-app
 | 目录感知作用域 | 进入 scoped folder 后自动加载正确 env。 |
 | 自动卸载 | 离开目录后移除上一个作用域的变量。 |
 | Project 和 skill | 当前支持 `project/demo-app` 和 `skill/frontend-design`。 |
+| 中心化 env 管理 | 在 scoped project 中使用 `aiscope set`、`aiscope unset` 和 `aiscope vars`。 |
 | 本地 vault | Env 文件集中保存在 `~/.aiscope/vault`。 |
 | `.env.local` 链接 | 为需要读取本地 env 文件的框架，把当前 scope 链接成 `.env.local`。 |
 | 隐藏密钥输出 | 可以看到加载了哪些 key，但不会打印真实值。 |
@@ -143,13 +147,16 @@ source ~/.bashrc
 ```bash
 mkdir my-app
 cd my-app
-aiscope init project my-app
-aiscope edit
+aiscope use my-app
+aiscope set OPENAI_API_KEY sk-...
+aiscope vars
 aiscope link
 codex
 ```
 
-`aiscope edit` 会使用 `$EDITOR` 打开作用域 env 文件；如果没有设置 `$EDITOR`，则使用 `nano`。
+`aiscope use` 会把当前目录连接到一个中心化 project scope。
+
+`aiscope set` 会把变量写入中心化 aiscope vault。
 
 `aiscope link` 会创建 `.env.local`，并把它作为 symlink 指向当前 scope 的 env 文件。适合 Next.js、Vite 或其他会扫描 `.env.local` 的工具。
 
@@ -180,6 +187,10 @@ claude
 
 | 命令 | 说明 |
 | --- | --- |
+| `aiscope use <name>` | 把当前目录连接到一个中心化 project scope。 |
+| `aiscope set <KEY> <VALUE>` | 在当前 scope 中设置变量。 |
+| `aiscope unset <KEY>` | 从当前 scope 中删除变量。 |
+| `aiscope vars` | 列出当前 scope 的变量，值会被隐藏。 |
 | `aiscope init project <name>` | 创建项目作用域。 |
 | `aiscope init skill <name>` | 创建技能作用域。 |
 | `aiscope hook zsh` | 输出 zsh shell hook。 |
@@ -212,6 +223,8 @@ env = "~/.aiscope/vault/skills/writing-kit.env"
 ```
 
 作用域名称支持字母、数字、点、短横线和下划线。
+
+大多数用户可以直接使用 `aiscope use <name>`，不需要手动编写这个文件。
 
 ## Vault 结构
 
@@ -248,6 +261,15 @@ DATABASE_URL="postgresql://localhost/my_app"
 - 带空格的引号值
 
 `aiscope` 会把 env 文件当作数据解析，不会执行它，也不会把它当作 shell 脚本 source。
+
+从 CLI 管理 env：
+
+```bash
+aiscope set OPENAI_API_KEY sk-...
+aiscope set DATABASE_URL postgresql://localhost/my_app
+aiscope vars
+aiscope unset DATABASE_URL
+```
 
 ## `.env.local` 兼容
 

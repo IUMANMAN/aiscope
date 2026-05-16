@@ -31,6 +31,16 @@ export async function createScope(type, name, cwd = process.cwd()) {
   return { type, name, configPath, envPath, docPath };
 }
 
+export async function useProjectScope(name, cwd = process.cwd()) {
+  const existing = await currentScope(cwd);
+  if (existing) {
+    if (existing.type === "project" && existing.name === name) return { ...existing, reused: true };
+    throw new Error(`this folder already uses ${existing.type}/${existing.name}.`);
+  }
+
+  return createScope("project", name, cwd);
+}
+
 async function writeScopeDocIfMissing(docPath, type, name) {
   const title = `${type}/${name}`;
   const body = `# ${title}\n\nLocal notes for this aiscope scope.\n\nSecrets belong in the matching vault env file, not in this document.\n`;

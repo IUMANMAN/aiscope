@@ -124,8 +124,8 @@ eval "$(aiscope hook zsh)"
 
 mkdir demo-app
 cd demo-app
-aiscope init project demo-app
-aiscope edit</code></pre>
+aiscope use demo-app
+aiscope set OPENAI_API_KEY sk-...</code></pre>
       </section>
     </main>
 
@@ -138,7 +138,7 @@ aiscope edit</code></pre>
           releasePill: "Now on npm",
           eyebrow: "Local scopes for AI coding agents",
           headline: "Auto-loading local scopes for AI coding agents.",
-          subtitle: "Stop exporting global API keys. Stop typing wrapper commands. Enter a project folder, run codex or claude, and the right environment is already active.",
+          subtitle: "Manage env variables in one local vault. Enter a project folder, run codex or claude, and the right environment is already active.",
           installButton: "Install",
           npmButton: "View on npm",
           trustOne: "Local-first vault",
@@ -158,10 +158,10 @@ aiscope edit</code></pre>
           promiseEyebrow: "The core promise",
           promiseTitle: "cd into a project. Run codex. That's it.",
           promiseBody: "Use normal commands. aiscope handles the folder-specific environment in the shell.",
-          quickstart: "mkdir demo-app\ncd demo-app\naiscope init project demo-app\naiscope edit\naiscope link\ncodex",
+          quickstart: "mkdir demo-app\ncd demo-app\naiscope use demo-app\naiscope set OPENAI_API_KEY sk-...\naiscope link\ncodex",
           installEyebrow: "Get started",
           installTitle: "Install once. Use everywhere.",
-          installNpm: "Install from npm, enable the hook, then create a scoped project.",
+          installNpm: "Install from npm, enable the hook, then manage env variables from one place.",
           htmlLang: "en"
         },
         zh: {
@@ -171,7 +171,7 @@ aiscope edit</code></pre>
           releasePill: "已发布到 npm",
           eyebrow: "AI 编程代理的本地作用域",
           headline: "为 AI 编程代理自动加载本地作用域。",
-          subtitle: "不再全局导出 API key，不再输入包装命令。进入项目目录，运行 codex 或 claude，正确的环境变量已经准备好。",
+          subtitle: "在一个本地 vault 中管理环境变量。进入项目目录，运行 codex 或 claude，正确的环境变量已经准备好。",
           installButton: "安装",
           npmButton: "查看 npm",
           trustOne: "本地优先 vault",
@@ -191,10 +191,10 @@ aiscope edit</code></pre>
           promiseEyebrow: "核心体验",
           promiseTitle: "进入项目目录。运行 codex。就这样。",
           promiseBody: "继续使用普通命令。aiscope 在 shell 中处理当前目录对应的环境变量。",
-          quickstart: "mkdir demo-app\ncd demo-app\naiscope init project demo-app\naiscope edit\naiscope link\ncodex",
+          quickstart: "mkdir demo-app\ncd demo-app\naiscope use demo-app\naiscope set OPENAI_API_KEY sk-...\naiscope link\ncodex",
           installEyebrow: "开始使用",
           installTitle: "安装一次，到处使用。",
-          installNpm: "从 npm 安装，启用 hook，然后创建 scoped project。",
+          installNpm: "从 npm 安装，启用 hook，然后在一个地方管理环境变量。",
           htmlLang: "zh-CN"
         }
       };
