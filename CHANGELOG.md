@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.0
+
+- Add `aiscope export` for tools that need shell export commands without installing the hook
+- Improve package help output and first-run command order
+- Make `aiscope link` idempotent and add `--force` for replacing existing symlinks
+
 ## 0.2.0
 
 - Add `aiscope link [file]` to link the current scope env file as `.env.local` or another local env filename

@@ -187,6 +187,7 @@ claude
 | `aiscope status` | Show the active scope and masked keys. |
 | `aiscope list` | List known scopes. |
 | `aiscope edit` | Edit the current scope env file. |
+| `aiscope export` | Print safe shell `export` commands for the current scope. |
 | `aiscope link [file]` | Link the current scope env file as `.env.local` or another local filename. |
 | `aiscope doctor` | Check local setup. |
 | `aiscope version` | Print package version. |
@@ -309,6 +310,12 @@ Troubleshooting:
 ```bash
 aiscope status
 aiscope doctor
+```
+
+One-off shell export without installing the hook:
+
+```bash
+eval "$(aiscope export)"
 ```
 
 ## Security Model

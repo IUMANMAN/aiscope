@@ -4,6 +4,7 @@ import { statusCommand } from "./commands/status.js";
 import { listCommand } from "./commands/list.js";
 import { editCommand } from "./commands/edit.js";
 import { linkCommand } from "./commands/link.js";
+import { exportCommandForScope } from "./commands/export.js";
 import { doctorCommand } from "./commands/doctor.js";
 import { versionCommand } from "./commands/version.js";
 import { helpCommand } from "./commands/help.js";
@@ -37,6 +38,9 @@ export async function run(argv = process.argv) {
       break;
     case "edit":
       await editCommand();
+      break;
+    case "export":
+      await exportCommandForScope();
       break;
     case "link":
       await linkCommand(rest);

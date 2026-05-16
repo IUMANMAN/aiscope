@@ -13,8 +13,8 @@ export async function initCommand(args) {
   console.log(`env: ${displayPath(scope.envPath)}`);
   console.log("");
   console.log("Next:");
+  console.log('  eval "$(aiscope hook zsh)"');
   console.log("  aiscope edit");
   console.log("  aiscope link  # optional: create .env.local symlink");
-  console.log('  eval "$(aiscope hook zsh)"');
   console.log("  codex");
 }

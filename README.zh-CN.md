@@ -187,6 +187,7 @@ claude
 | `aiscope status` | 查看当前作用域和隐藏后的 key。 |
 | `aiscope list` | 列出已知作用域。 |
 | `aiscope edit` | 编辑当前作用域 env 文件。 |
+| `aiscope export` | 输出当前 scope 的安全 shell `export` 命令。 |
 | `aiscope link [file]` | 把当前 scope env 文件链接为 `.env.local` 或其他本地文件名。 |
 | `aiscope doctor` | 检查本地配置。 |
 | `aiscope version` | 输出版本号。 |
@@ -309,6 +310,12 @@ python -c 'import os; print(bool(os.environ.get("OPENAI_API_KEY")))'
 ```bash
 aiscope status
 aiscope doctor
+```
+
+不安装 hook，只做一次性 shell export：
+
+```bash
+eval "$(aiscope export)"
 ```
 
 ## 安全模型

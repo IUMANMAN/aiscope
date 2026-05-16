@@ -4,7 +4,7 @@ import { currentScope } from "../core/scope.js";
 import { displayPath } from "../core/paths.js";
 
 export async function linkCommand(args) {
-  const [fileName = ".env.local"] = args;
+  const { fileName, force } = parseArgs(args);
   validateLocalEnvFileName(fileName);
 
   const scope = await currentScope();
@@ -13,7 +13,13 @@ export async function linkCommand(args) {
   }
 
   const linkPath = path.resolve(process.cwd(), fileName);
-  await ensureLinkable(linkPath, scope.envPath);
+  const result = await ensureLinkable(linkPath, scope.envPath, force);
+  if (result === "already-linked") {
+    console.log(`aiscope: ${fileName} already links to this scope`);
+    console.log(`target: ${displayPath(scope.envPath)}`);
+    return;
+  }
+
   await fs.promises.symlink(scope.envPath, linkPath);
 
   console.log(`aiscope: linked ${fileName}`);
@@ -25,13 +31,28 @@ export async function linkCommand(args) {
   console.log(`Do not commit ${fileName}. Add it to .gitignore if needed.`);
 }
 
+function parseArgs(args) {
+  let fileName = ".env.local";
+  let force = false;
+
+  for (const arg of args) {
+    if (arg === "--force" || arg === "-f") {
+      force = true;
+    } else {
+      fileName = arg;
+    }
+  }
+
+  return { fileName, force };
+}
+
 function validateLocalEnvFileName(fileName) {
   if (!fileName || fileName.includes("/") || fileName.includes("\\") || fileName === "." || fileName === "..") {
     throw new Error("invalid env link name. Use a local filename like .env.local or .dev.vars.");
   }
 }
 
-async function ensureLinkable(linkPath, targetPath) {
+async function ensureLinkable(linkPath, targetPath, force) {
   let stat;
   try {
     stat = await fs.promises.lstat(linkPath);
@@ -44,9 +65,14 @@ async function ensureLinkable(linkPath, targetPath) {
     const existingTarget = await fs.promises.readlink(linkPath);
     const resolvedExisting = path.resolve(path.dirname(linkPath), existingTarget);
     if (resolvedExisting === targetPath) {
-      throw new Error(`${path.basename(linkPath)} already links to this aiscope env file.`);
+      return "already-linked";
+    }
+
+    if (force) {
+      await fs.promises.unlink(linkPath);
+      return "removed";
     }
   }
 
-  throw new Error(`${path.basename(linkPath)} already exists. Remove it first if you want aiscope to manage it.`);
+  throw new Error(`${path.basename(linkPath)} already exists. Remove it first, or use aiscope link --force to replace an existing symlink.`);
 }
