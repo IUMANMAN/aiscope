@@ -318,13 +318,13 @@ Values are masked by default. If the same key exists in both project and shared 
 
 ## Local Dashboard
 
-Use the terminal dashboard when you want to see the whole project setup:
+Use the terminal dashboard when you want to see the whole setup:
 
 ```bash
 aiscope dashboard
 ```
 
-It shows:
+Inside a scoped project, it shows:
 
 - current project scope
 - shell hook state
@@ -335,6 +335,13 @@ It shows:
 - shared variables
 - resolved variables and override sources
 - suggested next actions
+
+Outside a scoped project, it shows the global vault:
+
+- all projects
+- all shared scopes
+- all skill scopes
+- masked keys for each scope
 
 Alias:
 

@@ -318,13 +318,13 @@ aiscope shared openai
 
 ## 本地 Dashboard
 
-想查看整个项目的配置时：
+想查看整体配置时：
 
 ```bash
 aiscope dashboard
 ```
 
-它会显示：
+在 scoped project 中，它会显示：
 
 - 当前 project scope
 - shell hook 状态
@@ -335,6 +335,13 @@ aiscope dashboard
 - shared 变量
 - 合并后的变量和覆盖来源
 - 推荐下一步操作
+
+不在 scoped project 中时，它会显示全局 vault：
+
+- 所有 projects
+- 所有 shared scopes
+- 所有 skill scopes
+- 每个 scope 的隐藏 keys
 
 别名：
 

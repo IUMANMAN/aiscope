@@ -4,6 +4,7 @@
 
 - Add `aiscope dashboard` and `aiscope dash` for a local terminal dashboard
 - Show current scope, hook state, `.env.local` link status, shared scopes, masked variables, overrides, and next actions
+- Show all projects, shared scopes, skill scopes, and masked keys when dashboard is run outside a scoped folder
 
 ## 0.5.0
 

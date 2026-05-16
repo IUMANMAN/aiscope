@@ -2,7 +2,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { currentScope } from "../core/scope.js";
 import { readResolvedEnv, sourceForKey } from "../core/resolve.js";
-import { displayPath } from "../core/paths.js";
+import { displayPath, envFilePath, vaultDir } from "../core/paths.js";
+import { readEnvFile } from "../core/env.js";
 import { maskValue, pathExists } from "../core/utils.js";
 
 export async function dashboardCommand() {
@@ -13,11 +14,7 @@ export async function dashboardCommand() {
   console.log("");
 
   if (!scope) {
-    console.log("No project scope in this folder.");
-    console.log("");
-    console.log("Start here:");
-    console.log("  aiscope use <project-name>");
-    console.log("  aiscope set OPENAI_API_KEY sk-...");
+    await printGlobalDashboard();
     return;
   }
 
@@ -78,6 +75,41 @@ export async function dashboardCommand() {
   console.log("  aiscope link");
 }
 
+async function printGlobalDashboard() {
+  const projects = await readNamedEnvScopes("project");
+  const skills = await readNamedEnvScopes("skill");
+  const shared = await readNamedEnvScopes("shared");
+  const total = projects.length + skills.length + shared.length;
+
+  section("Global vault");
+  line("Location", displayPath(vaultDir("project")).replace(/\/vault\/projects$/, ""));
+  line("Projects", String(projects.length));
+  line("Skills", String(skills.length));
+  line("Shared", String(shared.length));
+
+  section("Projects");
+  printScopeList(projects);
+
+  section("Shared");
+  printScopeList(shared);
+
+  section("Skills");
+  printScopeList(skills);
+
+  if (total === 0) {
+    section("Start here");
+    console.log("  aiscope use <project-name>");
+    console.log("  aiscope set OPENAI_API_KEY sk-...");
+    return;
+  }
+
+  section("Next actions");
+  console.log("  cd <project>");
+  console.log("  aiscope use <project-name>");
+  console.log("  aiscope vars");
+  console.log("  aiscope shared");
+}
+
 function section(title) {
   console.log("");
   console.log(title);
@@ -103,6 +135,48 @@ function printSourceVariables(source) {
   for (const key of keys) {
     console.log(`    ${key}=${maskValue(source.env[key])}`);
   }
+}
+
+function printScopeList(scopes) {
+  if (scopes.length === 0) {
+    console.log("  (none)");
+    return;
+  }
+
+  for (const scope of scopes) {
+    const keys = Object.keys(scope.env).sort((a, b) => a.localeCompare(b));
+    console.log(`  ${scope.type}/${scope.name}`);
+    if (keys.length === 0) {
+      console.log("    (none)");
+      continue;
+    }
+    for (const key of keys) {
+      console.log(`    ${key}=${maskValue(scope.env[key])}`);
+    }
+  }
+}
+
+async function readNamedEnvScopes(type) {
+  let names;
+  try {
+    const entries = await fs.promises.readdir(vaultDir(type), { withFileTypes: true });
+    names = entries
+      .filter((entry) => entry.isFile() && entry.name.endsWith(".env"))
+      .map((entry) => path.basename(entry.name, ".env"))
+      .sort((a, b) => a.localeCompare(b));
+  } catch {
+    return [];
+  }
+
+  const scopes = [];
+  for (const name of names) {
+    scopes.push({
+      type,
+      name,
+      env: await readEnvFile(envFilePath(type, name))
+    });
+  }
+  return scopes;
 }
 
 async function linkStatus(fileName, targetPath) {
