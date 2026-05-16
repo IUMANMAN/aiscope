@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.0
+
+- Add `aiscope link [file]` to link the current scope env file as `.env.local` or another local env filename
+- Ignore common local env link files such as `.env.*` and `.dev.vars`
+
 ## 0.1.1
 
 - Use npm install as the primary public install path

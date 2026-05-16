@@ -9,6 +9,7 @@ Usage:
   aiscope status
   aiscope list
   aiscope edit
+  aiscope link [file]
   aiscope doctor
   aiscope version
   aiscope help
@@ -16,6 +17,7 @@ Usage:
 Examples:
   aiscope init project demo-app
   aiscope edit
+  aiscope link
   eval "$(aiscope hook zsh)"
   codex
 

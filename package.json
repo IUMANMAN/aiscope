@@ -1,6 +1,6 @@
 {
   "name": "aiscope",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Auto-loading local scopes for AI coding agents",
   "type": "module",
   "homepage": "https://iumanman.github.io/aiscope/",

@@ -78,6 +78,7 @@ aiscope: unloaded project/demo-app
 | 自动卸载 | 离开目录后移除上一个作用域的变量。 |
 | Project 和 skill | 当前支持 `project/demo-app` 和 `skill/frontend-design`。 |
 | 本地 vault | Env 文件集中保存在 `~/.aiscope/vault`。 |
+| `.env.local` 链接 | 为需要读取本地 env 文件的框架，把当前 scope 链接成 `.env.local`。 |
 | 隐藏密钥输出 | 可以看到加载了哪些 key，但不会打印真实值。 |
 | 任意 CLI | 适用于 Codex、Claude Code、npm、Python、Node、Wrangler、Vercel 等工具。 |
 
@@ -124,10 +125,13 @@ mkdir my-app
 cd my-app
 aiscope init project my-app
 aiscope edit
+aiscope link
 codex
 ```
 
 `aiscope edit` 会使用 `$EDITOR` 打开作用域 env 文件；如果没有设置 `$EDITOR`，则使用 `nano`。
+
+`aiscope link` 会创建 `.env.local`，并把它作为 symlink 指向当前 scope 的 env 文件。适合 Next.js、Vite 或其他会扫描 `.env.local` 的工具。
 
 ## 实际体验
 
@@ -163,6 +167,7 @@ claude
 | `aiscope status` | 查看当前作用域和隐藏后的 key。 |
 | `aiscope list` | 列出已知作用域。 |
 | `aiscope edit` | 编辑当前作用域 env 文件。 |
+| `aiscope link [file]` | 把当前 scope env 文件链接为 `.env.local` 或其他本地文件名。 |
 | `aiscope doctor` | 检查本地配置。 |
 | `aiscope version` | 输出版本号。 |
 | `aiscope help` | 输出帮助。 |
@@ -222,6 +227,34 @@ DATABASE_URL="postgresql://localhost/my_app"
 - 带空格的引号值
 
 `aiscope` 会把 env 文件当作数据解析，不会执行它，也不会把它当作 shell 脚本 source。
+
+## `.env.local` 兼容
+
+大多数命令可以直接读取当前 shell 环境变量：
+
+```js
+process.env.OPENAI_API_KEY
+```
+
+有些框架也会读取 `.env.local` 这类本地文件。对于这种项目：
+
+```bash
+aiscope link
+```
+
+它会创建：
+
+```text
+.env.local -> ~/.aiscope/vault/projects/demo-app.env
+```
+
+也可以指定其他文件名：
+
+```bash
+aiscope link .dev.vars
+```
+
+这个链接只应该保留在本地，不要提交到 Git。
 
 ## 安全模型
 

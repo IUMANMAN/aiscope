@@ -78,6 +78,7 @@ The folder controls the scope. Any CLI launched inside the folder receives the r
 | Automatic unload | Leave the folder and previous scope variables are removed. |
 | Project and skill scopes | Use `project/demo-app` and `skill/frontend-design` today. |
 | Local vault | Keep env files in `~/.aiscope/vault` instead of every repo. |
+| `.env.local` link | Link the active scope as `.env.local` for frameworks that read env files from disk. |
 | Masked status | See which keys are loaded without printing secret values. |
 | Any CLI | Works with Codex, Claude Code, npm, Python, Node, Wrangler, Vercel, and more. |
 
@@ -124,10 +125,13 @@ mkdir my-app
 cd my-app
 aiscope init project my-app
 aiscope edit
+aiscope link
 codex
 ```
 
 `aiscope edit` opens the scope env file in `$EDITOR`, or `nano` when `$EDITOR` is not set.
+
+`aiscope link` creates `.env.local` as a symlink to the scope env file. Use it when your framework expects a local env file, such as Next.js, Vite, or other tools that scan `.env.local`.
 
 ## How It Feels
 
@@ -163,6 +167,7 @@ claude
 | `aiscope status` | Show the active scope and masked keys. |
 | `aiscope list` | List known scopes. |
 | `aiscope edit` | Edit the current scope env file. |
+| `aiscope link [file]` | Link the current scope env file as `.env.local` or another local filename. |
 | `aiscope doctor` | Check local setup. |
 | `aiscope version` | Print package version. |
 | `aiscope help` | Print help. |
@@ -222,6 +227,34 @@ Supported:
 - quoted values with spaces
 
 `aiscope` parses env files as data. It does not execute or source them.
+
+## `.env.local` Compatibility
+
+Most commands can read active scope values from the process environment:
+
+```js
+process.env.OPENAI_API_KEY
+```
+
+Some frameworks also look for a local file like `.env.local`. For those projects:
+
+```bash
+aiscope link
+```
+
+This creates:
+
+```text
+.env.local -> ~/.aiscope/vault/projects/demo-app.env
+```
+
+You can also choose another filename:
+
+```bash
+aiscope link .dev.vars
+```
+
+The link is local-only and should not be committed.
 
 ## Security Model
 
