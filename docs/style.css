@@ -22,6 +22,7 @@ html {
 
 body {
   margin: 0;
+  min-width: 320px;
 }
 
 a {
@@ -32,8 +33,8 @@ a {
 main {
   min-height: 100vh;
   background:
-    radial-gradient(circle at 18% 12%, rgba(78, 225, 160, 0.16), transparent 28%),
-    radial-gradient(circle at 82% 10%, rgba(124, 199, 255, 0.12), transparent 26%),
+    radial-gradient(circle at 18% 12%, rgba(78, 225, 160, 0.18), transparent 30%),
+    radial-gradient(circle at 82% 8%, rgba(124, 199, 255, 0.14), transparent 28%),
     linear-gradient(180deg, #0b1018 0%, #080b10 58%);
 }
 
@@ -53,14 +54,23 @@ main {
 }
 
 .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   font-weight: 800;
   font-size: 20px;
+}
+
+.brand img {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
 }
 
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 16px;
   color: var(--muted);
   font-size: 14px;
 }
@@ -99,11 +109,31 @@ main {
 
 .hero-grid {
   width: min(1120px, 100%);
-  margin: 104px auto 0;
+  margin: 86px auto 0;
   display: grid;
   grid-template-columns: 1fr 0.88fr;
   gap: 48px;
   align-items: center;
+}
+
+.release-pill {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding: 7px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.045);
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.release-pill code {
+  color: var(--accent);
+  font-size: 12px;
+  line-height: 1;
 }
 
 .eyebrow {
@@ -126,7 +156,7 @@ h1,
 .subtitle {
   max-width: 720px;
   color: var(--muted);
-  font-size: 20px;
+  font-size: 19px;
   line-height: 1.6;
 }
 
@@ -158,6 +188,22 @@ h1,
   color: var(--text);
 }
 
+.trust-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.trust-row span {
+  padding: 8px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #c8d2df;
+  background: rgba(255, 255, 255, 0.035);
+  font-size: 13px;
+}
+
 .terminal,
 .install pre,
 .split pre {
@@ -170,12 +216,26 @@ h1,
 
 .terminal-bar {
   display: flex;
-  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
   padding: 14px;
   border-bottom: 1px solid var(--line);
 }
 
-.terminal-bar span {
+.terminal-bar p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.window-dots {
+  display: flex;
+  gap: 8px;
+}
+
+.window-dots span {
   width: 12px;
   height: 12px;
   border-radius: 50%;
@@ -194,10 +254,42 @@ code {
   font: 15px/1.8 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
+.tool-strip {
+  width: min(1120px, calc(100% - 56px));
+  margin: 0 auto;
+  padding: 34px 0 10px;
+  display: grid;
+  grid-template-columns: 0.65fr 1.35fr;
+  gap: 24px;
+  align-items: center;
+}
+
+.tool-strip p {
+  margin: 0;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.tool-strip div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.tool-strip span {
+  padding: 8px 11px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.035);
+  color: var(--text);
+  font-size: 13px;
+}
+
 .features {
   width: min(1120px, calc(100% - 56px));
   margin: 0 auto;
-  padding: 72px 0 36px;
+  padding: 54px 0 36px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 18px;
@@ -217,10 +309,17 @@ code {
 }
 
 .features p,
-.install p {
+.install p,
+.section-copy {
   margin: 0;
   color: var(--muted);
   line-height: 1.6;
+}
+
+.section-copy {
+  margin-top: 20px;
+  max-width: 520px;
+  font-size: 18px;
 }
 
 .split {
@@ -238,13 +337,17 @@ code {
 }
 
 .install {
-  width: min(760px, calc(100% - 56px));
+  width: min(920px, calc(100% - 56px));
   margin: 0 auto;
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 34px;
+  align-items: center;
   padding: 0 0 88px;
 }
 
 .install pre {
-  margin: 12px 0 26px;
+  margin: 0;
 }
 
 @media (max-width: 860px) {
@@ -264,7 +367,9 @@ code {
 
   .hero-grid,
   .features,
-  .split {
+  .split,
+  .tool-strip,
+  .install {
     grid-template-columns: 1fr;
   }
 
@@ -274,7 +379,18 @@ code {
 
   .features,
   .install,
-  .split {
+  .split,
+  .tool-strip {
     width: min(100% - 36px, 720px);
+  }
+
+  .tool-strip div {
+    justify-content: flex-start;
+  }
+
+  .release-pill {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
   }
 }

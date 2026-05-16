@@ -15,9 +15,13 @@
     <main>
       <section class="hero">
         <nav class="nav" aria-label="Primary">
-          <a class="brand" href="#">aiscope</a>
+          <a class="brand" href="#">
+            <img src="./aiscope-mark-dark.svg" alt="" aria-hidden="true">
+            <span>aiscope</span>
+          </a>
           <div class="nav-links">
             <a href="#features" data-i18n="navFeatures">Features</a>
+            <a href="#works" data-i18n="navWorks">Works with</a>
             <a href="#install" data-i18n="navInstall">Install</a>
             <div class="language-switch" aria-label="Language">
               <button type="button" data-language-option="en">English</button>
@@ -29,6 +33,10 @@
 
         <div class="hero-grid">
           <div class="hero-copy">
+            <div class="release-pill">
+              <span data-i18n="releasePill">Now on npm</span>
+              <code>npm install -g aiscope</code>
+            </div>
             <p class="eyebrow" data-i18n="eyebrow">Local scopes for AI coding agents</p>
             <h1 data-i18n="headline">Auto-loading local scopes for AI coding agents.</h1>
             <p class="subtitle" data-i18n="subtitle">Stop exporting global API keys. Stop typing wrapper commands. Enter a project folder, run codex or claude, and the right environment is already active.</p>
@@ -36,13 +44,17 @@
               <a class="button primary" href="#install" data-i18n="installButton">Install</a>
               <a class="button secondary" href="https://www.npmjs.com/package/aiscope" data-i18n="npmButton">View on npm</a>
             </div>
+            <div class="trust-row" aria-label="Project highlights">
+              <span data-i18n="trustOne">Local-first vault</span>
+              <span data-i18n="trustTwo">zsh and bash</span>
+              <span data-i18n="trustThree">macOS and Linux</span>
+            </div>
           </div>
 
           <div class="terminal" aria-label="Terminal demo">
             <div class="terminal-bar">
-              <span></span>
-              <span></span>
-              <span></span>
+              <div class="window-dots"><span></span><span></span><span></span></div>
+              <p data-i18n="terminalTitle">daily workflow</p>
             </div>
             <pre><code data-i18n="terminal">$ cd ~/projects/demo-app
 aiscope: loaded project/demo-app
@@ -51,6 +63,20 @@ $ codex
 $ cd ..
 aiscope: unloaded project/demo-app</code></pre>
           </div>
+        </div>
+      </section>
+
+      <section id="works" class="tool-strip" aria-label="Supported tools">
+        <p data-i18n="worksLabel">Works with the tools builders already use</p>
+        <div>
+          <span>Codex</span>
+          <span>Claude Code</span>
+          <span>Next.js</span>
+          <span>Vite</span>
+          <span>Node</span>
+          <span>Python</span>
+          <span>Wrangler</span>
+          <span>Vercel</span>
         </div>
       </section>
 
@@ -77,6 +103,7 @@ aiscope: unloaded project/demo-app</code></pre>
         <div>
           <p class="eyebrow" data-i18n="promiseEyebrow">The core promise</p>
           <h2 data-i18n="promiseTitle">cd into a project. Run codex. That's it.</h2>
+          <p class="section-copy" data-i18n="promiseBody">Use normal commands. aiscope handles the folder-specific environment in the shell.</p>
         </div>
         <pre><code data-i18n="quickstart">mkdir demo-app
 cd demo-app
@@ -87,10 +114,18 @@ codex</code></pre>
       </section>
 
       <section id="install" class="install">
-        <h2 data-i18n="installTitle">Install</h2>
-        <p data-i18n="installNpm">Install from npm:</p>
+        <div>
+          <p class="eyebrow" data-i18n="installEyebrow">Get started</p>
+          <h2 data-i18n="installTitle">Install once. Use everywhere.</h2>
+          <p data-i18n="installNpm">Install from npm, enable the hook, then create a scoped project.</p>
+        </div>
         <pre><code>npm install -g aiscope
-eval "$(aiscope hook zsh)"</code></pre>
+eval "$(aiscope hook zsh)"
+
+mkdir demo-app
+cd demo-app
+aiscope init project demo-app
+aiscope edit</code></pre>
       </section>
     </main>
 
@@ -98,13 +133,20 @@ eval "$(aiscope hook zsh)"</code></pre>
       const translations = {
         en: {
           navFeatures: "Features",
+          navWorks: "Works with",
           navInstall: "Install",
+          releasePill: "Now on npm",
           eyebrow: "Local scopes for AI coding agents",
           headline: "Auto-loading local scopes for AI coding agents.",
           subtitle: "Stop exporting global API keys. Stop typing wrapper commands. Enter a project folder, run codex or claude, and the right environment is already active.",
           installButton: "Install",
           npmButton: "View on npm",
+          trustOne: "Local-first vault",
+          trustTwo: "zsh and bash",
+          trustThree: "macOS and Linux",
+          terminalTitle: "daily workflow",
           terminal: "$ cd ~/projects/demo-app\naiscope: loaded project/demo-app\n$ codex\n\n$ cd ..\naiscope: unloaded project/demo-app",
+          worksLabel: "Works with the tools builders already use",
           featureOneTitle: "No wrapper commands",
           featureOneBody: "Run Codex, Claude Code, npm, Python, Wrangler, Vercel, or any CLI exactly as you normally would.",
           featureTwoTitle: "No global secrets",
@@ -115,20 +157,29 @@ eval "$(aiscope hook zsh)"</code></pre>
           featureFourBody: "Env files are parsed as data, status output is masked, and old scope variables are unloaded before new ones load.",
           promiseEyebrow: "The core promise",
           promiseTitle: "cd into a project. Run codex. That's it.",
+          promiseBody: "Use normal commands. aiscope handles the folder-specific environment in the shell.",
           quickstart: "mkdir demo-app\ncd demo-app\naiscope init project demo-app\naiscope edit\naiscope link\ncodex",
-          installTitle: "Install",
-          installNpm: "Install from npm:",
+          installEyebrow: "Get started",
+          installTitle: "Install once. Use everywhere.",
+          installNpm: "Install from npm, enable the hook, then create a scoped project.",
           htmlLang: "en"
         },
         zh: {
           navFeatures: "功能",
+          navWorks: "适用工具",
           navInstall: "安装",
+          releasePill: "已发布到 npm",
           eyebrow: "AI 编程代理的本地作用域",
           headline: "为 AI 编程代理自动加载本地作用域。",
           subtitle: "不再全局导出 API key，不再输入包装命令。进入项目目录，运行 codex 或 claude，正确的环境变量已经准备好。",
           installButton: "安装",
           npmButton: "查看 npm",
+          trustOne: "本地优先 vault",
+          trustTwo: "zsh 和 bash",
+          trustThree: "macOS 和 Linux",
+          terminalTitle: "日常工作流",
           terminal: "$ cd ~/projects/demo-app\naiscope: loaded project/demo-app\n$ codex\n\n$ cd ..\naiscope: unloaded project/demo-app",
+          worksLabel: "适用于开发者已经在用的工具",
           featureOneTitle: "不需要包装命令",
           featureOneBody: "像平时一样运行 Codex、Claude Code、npm、Python、Wrangler、Vercel 或任何 CLI。",
           featureTwoTitle: "不需要全局密钥",
@@ -139,9 +190,11 @@ eval "$(aiscope hook zsh)"</code></pre>
           featureFourBody: "Env 文件会作为数据解析，状态输出会隐藏密钥值，加载新作用域前会先卸载旧变量。",
           promiseEyebrow: "核心体验",
           promiseTitle: "进入项目目录。运行 codex。就这样。",
+          promiseBody: "继续使用普通命令。aiscope 在 shell 中处理当前目录对应的环境变量。",
           quickstart: "mkdir demo-app\ncd demo-app\naiscope init project demo-app\naiscope edit\naiscope link\ncodex",
-          installTitle: "安装",
-          installNpm: "从 npm 安装：",
+          installEyebrow: "开始使用",
+          installTitle: "安装一次，到处使用。",
+          installNpm: "从 npm 安装，启用 hook，然后创建 scoped project。",
           htmlLang: "zh-CN"
         }
       };
