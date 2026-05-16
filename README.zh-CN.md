@@ -318,11 +318,30 @@ aiscope shared openai
 
 ## 本地 Dashboard
 
-想查看整体配置时：
+想管理整体配置时：
 
 ```bash
 aiscope dashboard
 ```
+
+在真实终端里，`aiscope dashboard` 会打开一个交互式 dashboard，包含这些 tabs：
+
+- `Overview`
+- `Projects`
+- `Shared`
+- `Skills`
+
+快捷键：
+
+| 按键 | 操作 |
+| --- | --- |
+| `Left` / `Right` | 切换 tabs |
+| `Up` / `Down` | 移动选择 |
+| `Space` | 给当前 project 添加或移除选中的 shared scope |
+| `e` | 编辑选中 scope 的 env 文件 |
+| `c` | 在当前 tab 创建 scope |
+| `r` | 刷新 |
+| `q` | 退出 |
 
 在 scoped project 中，它会显示：
 
@@ -342,6 +361,12 @@ aiscope dashboard
 - 所有 shared scopes
 - 所有 skill scopes
 - 每个 scope 的隐藏 keys
+
+脚本或日志里可以使用纯文本输出：
+
+```bash
+aiscope dashboard --plain
+```
 
 别名：
 

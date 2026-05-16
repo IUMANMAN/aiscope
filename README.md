@@ -318,13 +318,32 @@ Values are masked by default. If the same key exists in both project and shared 
 
 ## Local Dashboard
 
-Use the terminal dashboard when you want to see the whole setup:
+Use the terminal dashboard when you want to manage the whole setup:
 
 ```bash
 aiscope dashboard
 ```
 
-Inside a scoped project, it shows:
+In a real terminal, `aiscope dashboard` opens an interactive dashboard with tabs:
+
+- `Overview`
+- `Projects`
+- `Shared`
+- `Skills`
+
+Keyboard controls:
+
+| Key | Action |
+| --- | --- |
+| `Left` / `Right` | Switch tabs |
+| `Up` / `Down` | Move selection |
+| `Space` | Attach or remove the selected shared scope from the current project |
+| `e` | Edit the selected scope env file |
+| `c` | Create a scope in the current tab |
+| `r` | Refresh |
+| `q` | Quit |
+
+Inside a scoped project, the dashboard shows:
 
 - current project scope
 - shell hook state
@@ -342,6 +361,12 @@ Outside a scoped project, it shows the global vault:
 - all shared scopes
 - all skill scopes
 - masked keys for each scope
+
+For scripts or logs, use the plain report:
+
+```bash
+aiscope dashboard --plain
+```
 
 Alias:
 

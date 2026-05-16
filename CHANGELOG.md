@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.7.0
+
+- Turn `aiscope dashboard` and `aiscope dash` into an interactive terminal dashboard when run in a TTY
+- Add tab navigation for overview, projects, shared scopes, and skills
+- Add keyboard controls for moving, editing, creating scopes, refreshing, and attaching/removing shared scopes
+- Keep `aiscope dash --plain` and non-TTY output as a clean static report
+
 ## 0.6.0
 
 - Add `aiscope dashboard` and `aiscope dash` for a local terminal dashboard

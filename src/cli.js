@@ -45,7 +45,7 @@ export async function run(argv = process.argv) {
       break;
     case "dashboard":
     case "dash":
-      await dashboardCommand();
+      await dashboardCommand(rest);
       break;
     case "shared":
       await sharedCommand(rest);

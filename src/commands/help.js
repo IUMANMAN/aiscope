@@ -8,6 +8,7 @@ Usage:
   aiscope unset <KEY>
   aiscope vars
   aiscope dashboard
+  aiscope dashboard --plain
   aiscope shared
   aiscope shared create <name>
   aiscope share <shared-name> <KEY...>
@@ -38,6 +39,8 @@ Examples:
 
 Notes:
   aiscope use <name> creates or attaches this folder to one central env scope.
+  aiscope dashboard opens an interactive local dashboard in a terminal.
+  aiscope dashboard --plain prints the non-interactive report.
   aiscope share copies selected project variables into a shared scope.
   aiscope automatically exports env variables when the shell hook is active.
   aiscope link creates .env.local for frameworks that read env files from disk.
