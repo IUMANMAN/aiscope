@@ -1,5 +1,5 @@
 import { findConfig, readConfig } from "../core/config.js";
-import { readEnvFile } from "../core/env.js";
+import { readResolvedEnv } from "../core/resolve.js";
 import { activationScript, deactivationScript, hookScript } from "../core/shell.js";
 
 export function hookCommand(args) {
@@ -28,7 +28,7 @@ export async function activateCommand(args) {
     return;
   }
 
-  const env = await readEnvFile(config.envPath);
+  const { env } = await readResolvedEnv(config);
   process.stdout.write(activationScript({ config, env, previousKeys, previousScope }));
 }
 

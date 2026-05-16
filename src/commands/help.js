@@ -7,6 +7,11 @@ Usage:
   aiscope set <KEY> <VALUE>
   aiscope unset <KEY>
   aiscope vars
+  aiscope shared
+  aiscope shared create <name>
+  aiscope share <shared-name> <KEY...>
+  aiscope add <shared-name>
+  aiscope remove <shared-name>
   aiscope init project <name>
   aiscope init skill <name>
   aiscope hook <zsh|bash>
@@ -24,11 +29,14 @@ Examples:
   eval "$(aiscope hook zsh)"
   aiscope use demo-app
   aiscope set OPENAI_API_KEY sk-...
+  aiscope share openai OPENAI_API_KEY
+  aiscope shared
   aiscope link
   codex
 
 Notes:
   aiscope use <name> creates or attaches this folder to one central env scope.
+  aiscope share copies selected project variables into a shared scope.
   aiscope automatically exports env variables when the shell hook is active.
   aiscope link creates .env.local for frameworks that read env files from disk.
 

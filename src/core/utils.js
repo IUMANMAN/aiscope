@@ -4,8 +4,8 @@ export const VALID_SCOPE_NAME = /^[a-zA-Z0-9._-]+$/;
 export const VALID_ENV_KEY = /^[A-Za-z_][A-Za-z0-9_]*$/;
 
 export function validateScopeType(type) {
-  if (type !== "project" && type !== "skill") {
-    throw new Error('scope type must be "project" or "skill".');
+  if (type !== "project" && type !== "skill" && type !== "shared") {
+    throw new Error('scope type must be "project", "skill", or "shared".');
   }
 }
 

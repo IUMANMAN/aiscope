@@ -41,6 +41,42 @@ export async function useProjectScope(name, cwd = process.cwd()) {
   return createScope("project", name, cwd);
 }
 
+export async function createSharedScope(name) {
+  validateScopeName(name);
+  const envPath = envFilePath("shared", name);
+  const docPath = scopeDocPath("shared", name);
+
+  await fs.promises.mkdir(path.dirname(envPath), { recursive: true });
+  await fs.promises.mkdir(path.dirname(docPath), { recursive: true });
+  await fs.promises.mkdir(logsDir(), { recursive: true });
+  await writeEnvFileIfMissing(envPath);
+  await writeScopeDocIfMissing(docPath, "shared", name);
+
+  return { type: "shared", name, envPath, docPath };
+}
+
+export async function attachSharedScope(name, cwd = process.cwd()) {
+  validateScopeName(name);
+  const scope = await currentScope(cwd);
+  if (!scope) throw new Error("missing .aiscope.toml. Run aiscope use <name> first.");
+
+  await createSharedScope(name);
+  const sharedNames = scope.shared.map((item) => item.name);
+  if (!sharedNames.includes(name)) sharedNames.push(name);
+  await fs.promises.writeFile(scope.configPath, configText(scope.type, scope.name, displayPath(scope.envPath), sharedNames));
+  return { ...scope, sharedNames };
+}
+
+export async function detachSharedScope(name, cwd = process.cwd()) {
+  validateScopeName(name);
+  const scope = await currentScope(cwd);
+  if (!scope) throw new Error("missing .aiscope.toml. Run aiscope use <name> first.");
+
+  const sharedNames = scope.shared.map((item) => item.name).filter((item) => item !== name);
+  await fs.promises.writeFile(scope.configPath, configText(scope.type, scope.name, displayPath(scope.envPath), sharedNames));
+  return { ...scope, sharedNames };
+}
+
 async function writeScopeDocIfMissing(docPath, type, name) {
   const title = `${type}/${name}`;
   const body = `# ${title}\n\nLocal notes for this aiscope scope.\n\nSecrets belong in the matching vault env file, not in this document.\n`;

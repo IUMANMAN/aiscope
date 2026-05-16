@@ -7,6 +7,7 @@ import { editCommand } from "./commands/edit.js";
 import { linkCommand } from "./commands/link.js";
 import { exportCommandForScope } from "./commands/export.js";
 import { setCommand, unsetCommand, varsCommand } from "./commands/vars.js";
+import { addCommand, removeCommand, shareCommand, sharedCommand } from "./commands/shared.js";
 import { doctorCommand } from "./commands/doctor.js";
 import { versionCommand } from "./commands/version.js";
 import { helpCommand } from "./commands/help.js";
@@ -40,6 +41,18 @@ export async function run(argv = process.argv) {
       break;
     case "vars":
       await varsCommand();
+      break;
+    case "shared":
+      await sharedCommand(rest);
+      break;
+    case "add":
+      await addCommand(rest);
+      break;
+    case "remove":
+      await removeCommand(rest);
+      break;
+    case "share":
+      await shareCommand(rest);
       break;
     case "hook":
       hookCommand(rest);

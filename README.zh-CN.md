@@ -54,6 +54,7 @@ codex
 - 在多个项目之间切换时，不把旧项目环境变量泄漏到新项目。
 - 让 Codex、Claude Code、本地 dev server、部署 CLI 和脚本使用同一套 scoped env。
 - 通过一个中心化 aiscope vault 管理环境变量。
+- 把选中的变量共享给多个项目。
 - 当框架需要磁盘上的 env 文件时，仍然兼容 `.env.local`。
 
 ## 问题
@@ -91,6 +92,7 @@ aiscope: unloaded project/demo-app
 | 自动卸载 | 离开目录后移除上一个作用域的变量。 |
 | Project 和 skill | 当前支持 `project/demo-app` 和 `skill/frontend-design`。 |
 | 中心化 env 管理 | 在 scoped project 中使用 `aiscope set`、`aiscope unset` 和 `aiscope vars`。 |
+| 共享变量 | 使用 `aiscope share`、`aiscope shared` 和 `aiscope add` 复用凭证。 |
 | 本地 vault | Env 文件集中保存在 `~/.aiscope/vault`。 |
 | `.env.local` 链接 | 为需要读取本地 env 文件的框架，把当前 scope 链接成 `.env.local`。 |
 | 隐藏密钥输出 | 可以看到加载了哪些 key，但不会打印真实值。 |
@@ -191,6 +193,11 @@ claude
 | `aiscope set <KEY> <VALUE>` | 在当前 scope 中设置变量。 |
 | `aiscope unset <KEY>` | 从当前 scope 中删除变量。 |
 | `aiscope vars` | 列出当前 scope 的变量，值会被隐藏。 |
+| `aiscope shared` | 列出共享 scopes 和它们的 key。 |
+| `aiscope shared create <name>` | 创建共享 env scope。 |
+| `aiscope share <shared-name> <KEY...>` | 把选中的项目变量复制到共享 scope。 |
+| `aiscope add <shared-name>` | 把共享 scope 添加到当前项目。 |
+| `aiscope remove <shared-name>` | 从当前项目移除共享 scope。 |
 | `aiscope init project <name>` | 创建项目作用域。 |
 | `aiscope init skill <name>` | 创建技能作用域。 |
 | `aiscope hook zsh` | 输出 zsh shell hook。 |
@@ -270,6 +277,40 @@ aiscope set DATABASE_URL postgresql://localhost/my_app
 aiscope vars
 aiscope unset DATABASE_URL
 ```
+
+## 共享变量
+
+共享 scope 适合多个项目都需要的凭证。`aiscope share` 会把选中的 key 复制到共享 scope，并把它添加到当前项目：
+
+```bash
+cd app-a
+aiscope use app-a
+aiscope set OPENAI_API_KEY sk-...
+aiscope share openai OPENAI_API_KEY
+```
+
+然后在另一个项目中使用同一组共享变量：
+
+```bash
+cd ../app-b
+aiscope use app-b
+aiscope add openai
+aiscope vars
+```
+
+查看所有共享 groups 和 keys：
+
+```bash
+aiscope shared
+```
+
+查看某个共享 group：
+
+```bash
+aiscope shared openai
+```
+
+默认会隐藏变量值。如果同一个 key 同时存在于 project 和 shared scope，project 的值优先。
 
 ## `.env.local` 兼容
 

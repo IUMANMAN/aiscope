@@ -46,11 +46,13 @@ export function scopeDocPath(type, name) {
 export function pluralType(type) {
   if (type === "project") return "projects";
   if (type === "skill") return "skills";
+  if (type === "shared") return "shared";
   throw new Error(`unsupported scope type "${type}"`);
 }
 
 export function singularType(plural) {
   if (plural === "projects") return "project";
   if (plural === "skills") return "skill";
+  if (plural === "shared") return "shared";
   throw new Error(`unsupported scope directory "${plural}"`);
 }

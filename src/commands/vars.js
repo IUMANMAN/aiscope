@@ -1,13 +1,17 @@
 import { readEnvFile, setEnvValue, unsetEnvValue } from "../core/env.js";
 import { currentScope } from "../core/scope.js";
+import { readResolvedEnv, sourceForKey } from "../core/resolve.js";
 import { maskValue } from "../core/utils.js";
 
 export async function varsCommand() {
   const scope = await requireScope();
-  const env = await readEnvFile(scope.envPath);
+  const { env, sources } = await readResolvedEnv(scope);
   const keys = Object.keys(env).sort((a, b) => a.localeCompare(b));
 
   console.log(`${scope.type}/${scope.name}`);
+  if (scope.shared.length > 0) {
+    console.log(`shared: ${scope.shared.map((item) => item.name).join(", ")}`);
+  }
   console.log("");
   console.log("Variables:");
 
@@ -17,7 +21,8 @@ export async function varsCommand() {
   }
 
   for (const key of keys) {
-    console.log(`  ${key}=${maskValue(env[key])}`);
+    const source = sourceForKey(key, sources);
+    console.log(`  ${key}=${maskValue(env[key])}  ${source}`);
   }
 }
 

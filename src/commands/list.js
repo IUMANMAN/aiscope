@@ -5,12 +5,16 @@ import { aiscopeHome } from "../core/paths.js";
 export async function listCommand() {
   const projects = await listNames(path.join(aiscopeHome(), "vault", "projects"));
   const skills = await listNames(path.join(aiscopeHome(), "vault", "skills"));
+  const shared = await listNames(path.join(aiscopeHome(), "vault", "shared"));
 
   console.log("Projects:");
   printList(projects);
   console.log("");
   console.log("Skills:");
   printList(skills);
+  console.log("");
+  console.log("Shared:");
+  printList(shared);
 }
 
 async function listNames(dir) {

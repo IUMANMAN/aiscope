@@ -7,12 +7,14 @@ test("parseSimpleToml reads aiscope config", () => {
 type = "project"
 name = "demo-app"
 env = "~/.aiscope/vault/projects/demo-app.env"
+shared = ["openai", "cloudflare"]
 `);
 
   assert.deepEqual(config, {
     type: "project",
     name: "demo-app",
-    env: "~/.aiscope/vault/projects/demo-app.env"
+    env: "~/.aiscope/vault/projects/demo-app.env",
+    shared: ["openai", "cloudflare"]
   });
 });
 

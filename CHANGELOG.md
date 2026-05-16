@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.0
+
+- Add shared env scopes for variables reused across projects
+- Add `aiscope shared`, `aiscope shared create`, `aiscope add`, `aiscope remove`, and `aiscope share`
+- Merge shared variables into activation/export, with project variables taking priority
+
 ## 0.4.0
 
 - Add `aiscope use <name>` for the simplest project setup flow

@@ -34,6 +34,10 @@ export async function readConfig(configPath) {
   return {
     ...parsed,
     envPath: expandHome(parsed.env),
+    shared: (parsed.shared || []).map((item) => ({
+      name: item,
+      envPath: expandHome(`~/.aiscope/vault/shared/${item}.env`)
+    })),
     configPath
   };
 }
@@ -52,7 +56,7 @@ export function parseSimpleToml(raw) {
     }
 
     const [, key, rawValue] = match;
-    result[key] = parseTomlString(rawValue.trim(), index + 1);
+    result[key] = parseTomlValue(rawValue.trim(), index + 1);
   }
 
   return result;
@@ -70,6 +74,13 @@ function stripTomlComment(line) {
   return line;
 }
 
+function parseTomlValue(value, lineNumber) {
+  if (value.startsWith("[") && value.endsWith("]")) {
+    return parseTomlStringArray(value, lineNumber);
+  }
+  return parseTomlString(value, lineNumber);
+}
+
 function parseTomlString(value, lineNumber) {
   if (value.startsWith('"') && value.endsWith('"')) {
     return value.slice(1, -1).replaceAll('\\"', '"').replaceAll("\\\\", "\\");
@@ -80,14 +91,25 @@ function parseTomlString(value, lineNumber) {
   throw new Error(`invalid TOML on line ${lineNumber}. Values must be quoted strings.`);
 }
 
+function parseTomlStringArray(value, lineNumber) {
+  const inner = value.slice(1, -1).trim();
+  if (!inner) return [];
+  return inner.split(",").map((item) => parseTomlString(item.trim(), lineNumber));
+}
+
 function validateConfig(config) {
   for (const key of ["type", "name", "env"]) {
     if (!config[key]) throw new Error(`invalid .aiscope.toml. Missing "${key}".`);
   }
   validateScopeType(config.type);
   validateScopeName(config.name);
+  if (config.shared) {
+    if (!Array.isArray(config.shared)) throw new Error('invalid .aiscope.toml. "shared" must be an array.');
+    for (const item of config.shared) validateScopeName(item);
+  }
 }
 
-export function configText(type, name, envPath) {
-  return `type = "${type}"\nname = "${name}"\nenv = "${envPath}"\n`;
+export function configText(type, name, envPath, shared = []) {
+  const sharedText = shared.length > 0 ? `shared = [${shared.map((item) => `"${item}"`).join(", ")}]\n` : "";
+  return `type = "${type}"\nname = "${name}"\nenv = "${envPath}"\n${sharedText}`;
 }

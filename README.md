@@ -54,6 +54,7 @@ Think `direnv` for AI agents, but simpler, safer by default, and built around pr
 - Switch projects without leaking old environment variables.
 - Give Codex, Claude Code, local dev servers, deploy CLIs, and scripts the same scoped env.
 - Manage env variables from one central aiscope vault.
+- Share selected variables across many projects.
 - Keep `.env.local` compatibility when a framework needs a file on disk.
 
 ## The Problem
@@ -91,6 +92,7 @@ The folder controls the scope. Any CLI launched inside the folder receives the r
 | Automatic unload | Leave the folder and previous scope variables are removed. |
 | Project and skill scopes | Use `project/demo-app` and `skill/frontend-design` today. |
 | Central env manager | Use `aiscope set`, `aiscope unset`, and `aiscope vars` from any scoped project. |
+| Shared variables | Reuse credentials with `aiscope share`, `aiscope shared`, and `aiscope add`. |
 | Local vault | Keep env files in `~/.aiscope/vault` instead of every repo. |
 | `.env.local` link | Link the active scope as `.env.local` for frameworks that read env files from disk. |
 | Masked status | See which keys are loaded without printing secret values. |
@@ -191,6 +193,11 @@ claude
 | `aiscope set <KEY> <VALUE>` | Set a variable in the current scope. |
 | `aiscope unset <KEY>` | Remove a variable from the current scope. |
 | `aiscope vars` | List current scope variables with masked values. |
+| `aiscope shared` | List shared scopes and their keys. |
+| `aiscope shared create <name>` | Create a shared env scope. |
+| `aiscope share <shared-name> <KEY...>` | Copy selected project variables into a shared scope. |
+| `aiscope add <shared-name>` | Attach a shared scope to the current project. |
+| `aiscope remove <shared-name>` | Detach a shared scope from the current project. |
 | `aiscope init project <name>` | Create a project scope. |
 | `aiscope init skill <name>` | Create a skill scope. |
 | `aiscope hook zsh` | Print the zsh shell hook. |
@@ -270,6 +277,40 @@ aiscope set DATABASE_URL postgresql://localhost/my_app
 aiscope vars
 aiscope unset DATABASE_URL
 ```
+
+## Shared Variables
+
+Use shared scopes for credentials that many projects need. `aiscope share` copies selected keys into a shared scope and attaches it to the current project:
+
+```bash
+cd app-a
+aiscope use app-a
+aiscope set OPENAI_API_KEY sk-...
+aiscope share openai OPENAI_API_KEY
+```
+
+Then attach the same shared variable group in another project:
+
+```bash
+cd ../app-b
+aiscope use app-b
+aiscope add openai
+aiscope vars
+```
+
+Show all shared groups and keys:
+
+```bash
+aiscope shared
+```
+
+Show one shared group:
+
+```bash
+aiscope shared openai
+```
+
+Values are masked by default. If the same key exists in both project and shared scopes, the project value wins.
 
 ## `.env.local` Compatibility
 
