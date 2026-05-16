@@ -3,6 +3,7 @@
   "version": "0.2.0",
   "description": "Auto-loading local scopes for AI coding agents",
   "type": "module",
+  "author": "IUMANMAN",
   "homepage": "https://iumanman.github.io/aiscope/",
   "repository": {
     "type": "git",
@@ -31,6 +32,7 @@
   "scripts": {
     "start": "node ./bin/aiscope.js",
     "test": "node --test",
+    "check": "npm run lint && npm test",
     "lint": "node --check bin/aiscope.js && node --check src/cli.js && find src -name '*.js' -exec node --check {} \\;"
   },
   "keywords": [

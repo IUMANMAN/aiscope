@@ -14,6 +14,7 @@
 <p align="center">
   <a href="https://www.npmjs.com/package/aiscope"><img alt="npm version" src="https://img.shields.io/npm/v/aiscope?color=4ee1a0"></a>
   <a href="https://www.npmjs.com/package/aiscope"><img alt="npm downloads" src="https://img.shields.io/npm/dm/aiscope"></a>
+  <a href="https://github.com/IUMANMAN/aiscope/actions/workflows/ci.yml"><img alt="ci" src="https://github.com/IUMANMAN/aiscope/actions/workflows/ci.yml/badge.svg"></a>
   <a href="https://github.com/IUMANMAN/aiscope/blob/main/LICENSE"><img alt="license" src="https://img.shields.io/github/license/IUMANMAN/aiscope"></a>
   <a href="https://github.com/IUMANMAN/aiscope"><img alt="node" src="https://img.shields.io/badge/node-%3E%3D18-7cc7ff"></a>
   <a href="https://iumanman.github.io/aiscope/"><img alt="pages" src="https://img.shields.io/badge/docs-GitHub%20Pages-4ee1a0"></a>
@@ -22,7 +23,9 @@
 <p align="center">
   <a href="./README.md">English</a>
   <span> · </span>
-  <a href="https://iumanman.github.io/aiscope/">网站</a>
+  <a href="https://iumanman.github.io/aiscope/?lang=zh">网站</a>
+  <span> · </span>
+  <a href="https://www.npmjs.com/package/aiscope">npm</a>
   <span> · </span>
   <a href="https://github.com/IUMANMAN/aiscope/issues">Issues</a>
 </p>
@@ -42,6 +45,13 @@ codex
 `aiscope` 是一个面向 AI 编程工作的本地作用域管理器。进入项目或技能目录时，它会自动加载对应的环境变量；离开目录时，它会自动卸载这些变量。
 
 你可以把它理解成面向 AI agent 的 `direnv`：更简单，更聚焦 project / skill 作用域。
+
+## 为什么开发者会用它
+
+- 不把 AI/API 凭证写进全局 shell 配置。
+- 在多个项目之间切换时，不把旧项目环境变量泄漏到新项目。
+- 让 Codex、Claude Code、本地 dev server、部署 CLI 和脚本使用同一套 scoped env。
+- 当框架需要磁盘上的 env 文件时，仍然兼容 `.env.local`。
 
 ## 问题
 
@@ -81,6 +91,16 @@ aiscope: unloaded project/demo-app
 | `.env.local` 链接 | 为需要读取本地 env 文件的框架，把当前 scope 链接成 `.env.local`。 |
 | 隐藏密钥输出 | 可以看到加载了哪些 key，但不会打印真实值。 |
 | 任意 CLI | 适用于 Codex、Claude Code、npm、Python、Node、Wrangler、Vercel 等工具。 |
+
+## 适用工具
+
+| 工具 | 作用 |
+| --- | --- |
+| Codex / Claude Code | 在 scoped folder 中启动，provider key 自动可用。 |
+| Next.js / Vite | 框架读取 `.env.local` 时使用 `aiscope link`。 |
+| Node / Python | 正常读取 `process.env.*` 或 `os.environ`。 |
+| Cloudflare Wrangler | 可以链接 `.dev.vars`，也可以直接使用 shell 环境变量。 |
+| Vercel / Netlify | 用正确的本地项目 env 运行部署命令。 |
 
 ## 安装
 
@@ -255,6 +275,41 @@ aiscope link .dev.vars
 ```
 
 这个链接只应该保留在本地，不要提交到 Git。
+
+## 常见用法
+
+Next.js 或 Vite：
+
+```bash
+aiscope link
+npm run dev
+```
+
+Cloudflare Workers：
+
+```bash
+aiscope link .dev.vars
+wrangler dev
+```
+
+Node：
+
+```bash
+node -e 'console.log(Boolean(process.env.OPENAI_API_KEY))'
+```
+
+Python：
+
+```bash
+python -c 'import os; print(bool(os.environ.get("OPENAI_API_KEY")))'
+```
+
+排查问题：
+
+```bash
+aiscope status
+aiscope doctor
+```
 
 ## 安全模型
 

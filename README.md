@@ -14,6 +14,7 @@
 <p align="center">
   <a href="https://www.npmjs.com/package/aiscope"><img alt="npm version" src="https://img.shields.io/npm/v/aiscope?color=4ee1a0"></a>
   <a href="https://www.npmjs.com/package/aiscope"><img alt="npm downloads" src="https://img.shields.io/npm/dm/aiscope"></a>
+  <a href="https://github.com/IUMANMAN/aiscope/actions/workflows/ci.yml"><img alt="ci" src="https://github.com/IUMANMAN/aiscope/actions/workflows/ci.yml/badge.svg"></a>
   <a href="https://github.com/IUMANMAN/aiscope/blob/main/LICENSE"><img alt="license" src="https://img.shields.io/github/license/IUMANMAN/aiscope"></a>
   <a href="https://github.com/IUMANMAN/aiscope"><img alt="node" src="https://img.shields.io/badge/node-%3E%3D18-7cc7ff"></a>
   <a href="https://iumanman.github.io/aiscope/"><img alt="pages" src="https://img.shields.io/badge/docs-GitHub%20Pages-4ee1a0"></a>
@@ -22,7 +23,9 @@
 <p align="center">
   <a href="./README.zh-CN.md">中文</a>
   <span> · </span>
-  <a href="https://iumanman.github.io/aiscope/">Website</a>
+  <a href="https://iumanman.github.io/aiscope/?lang=en">Website</a>
+  <span> · </span>
+  <a href="https://www.npmjs.com/package/aiscope">npm</a>
   <span> · </span>
   <a href="https://github.com/IUMANMAN/aiscope/issues">Issues</a>
 </p>
@@ -42,6 +45,13 @@ No wrapper command. No global secrets. No manual env switching.
 `aiscope` is a tiny local scope manager for AI coding work. It automatically loads the right environment variables when you enter a project or skill folder, then unloads them when you leave.
 
 Think `direnv` for AI agents, but simpler, safer by default, and built around project and skill scopes.
+
+## Why Builders Use It
+
+- Keep AI/API credentials out of global shell config.
+- Switch projects without leaking old environment variables.
+- Give Codex, Claude Code, local dev servers, deploy CLIs, and scripts the same scoped env.
+- Keep `.env.local` compatibility when a framework needs a file on disk.
 
 ## The Problem
 
@@ -81,6 +91,16 @@ The folder controls the scope. Any CLI launched inside the folder receives the r
 | `.env.local` link | Link the active scope as `.env.local` for frameworks that read env files from disk. |
 | Masked status | See which keys are loaded without printing secret values. |
 | Any CLI | Works with Codex, Claude Code, npm, Python, Node, Wrangler, Vercel, and more. |
+
+## Works With
+
+| Tool | How it benefits |
+| --- | --- |
+| Codex / Claude Code | Launch from a scoped folder and provider keys are already available. |
+| Next.js / Vite | Use `aiscope link` when the framework reads `.env.local`. |
+| Node / Python | Read `process.env.*` or `os.environ` normally. |
+| Cloudflare Wrangler | Link `.dev.vars` or use exported env vars in the shell. |
+| Vercel / Netlify | Run deploy commands with the correct local project env. |
 
 ## Install
 
@@ -255,6 +275,41 @@ aiscope link .dev.vars
 ```
 
 The link is local-only and should not be committed.
+
+## Recipes
+
+Next.js or Vite:
+
+```bash
+aiscope link
+npm run dev
+```
+
+Cloudflare Workers:
+
+```bash
+aiscope link .dev.vars
+wrangler dev
+```
+
+Plain Node:
+
+```bash
+node -e 'console.log(Boolean(process.env.OPENAI_API_KEY))'
+```
+
+Python:
+
+```bash
+python -c 'import os; print(bool(os.environ.get("OPENAI_API_KEY")))'
+```
+
+Troubleshooting:
+
+```bash
+aiscope status
+aiscope doctor
+```
 
 ## Security Model
 

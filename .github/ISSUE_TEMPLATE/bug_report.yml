@@ -1,0 +1,53 @@
+name: Bug report
+description: Report a reproducible aiscope bug.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not paste real secrets, API keys, tokens, or private env files.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Describe the behavior you saw.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction steps
+      value: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: aiscope version
+      placeholder: "aiscope version"
+  - type: input
+    id: shell
+    attributes:
+      label: Shell
+      placeholder: "zsh, bash"
+  - type: input
+    id: os
+    attributes:
+      label: OS
+      placeholder: "macOS, Linux distro"
+  - type: textarea
+    id: doctor
+    attributes:
+      label: aiscope doctor output
+      description: Redact anything sensitive before posting.
+      render: text
